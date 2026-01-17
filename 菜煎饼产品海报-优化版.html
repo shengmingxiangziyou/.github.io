@@ -1,0 +1,2026 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>菜煎饼 - 企业智能知识中枢解决方案</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+            overflow-x: hidden;
+        }
+
+        .poster {
+            max-width: 1200px;
+            width: 100%;
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 30px;
+            box-shadow: 0 30px 60px rgba(0, 0, 0, 0.3);
+            overflow: hidden;
+            animation: fadeIn 1s ease-out;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .header {
+            background: linear-gradient(135deg, #FF6B6B 0%, #FF8E53 100%);
+            padding: 60px 40px;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .header::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(255,255,255,0.1) 0%, transparent 70%);
+            animation: rotate 20s linear infinite;
+        }
+
+        @keyframes rotate {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+
+        .logo {
+            font-size: 72px;
+            font-weight: 900;
+            color: white;
+            text-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+            margin-bottom: 20px;
+            position: relative;
+            z-index: 1;
+            letter-spacing: 4px;
+        }
+
+        .tagline {
+            font-size: 28px;
+            color: rgba(255, 255, 255, 0.95);
+            font-weight: 300;
+            position: relative;
+            z-index: 1;
+            letter-spacing: 2px;
+            margin-bottom: 20px;
+        }
+
+        .platform-badges {
+            display: flex;
+            gap: 20px;
+            justify-content: center;
+            flex-wrap: wrap;
+            margin-top: 25px;
+        }
+
+        .platform-badge {
+            display: inline-block;
+            background: rgba(255, 255, 255, 0.2);
+            padding: 12px 28px;
+            border-radius: 50px;
+            font-size: 16px;
+            color: white;
+            font-weight: 600;
+            backdrop-filter: blur(10px);
+            border: 2px solid rgba(255, 255, 255, 0.3);
+        }
+
+        .content {
+            padding: 50px 40px;
+        }
+
+        .section {
+            margin-bottom: 50px;
+            animation: slideIn 0.8s ease-out;
+        }
+
+        .section:last-child {
+            margin-bottom: 0;
+        }
+
+        @keyframes slideIn {
+            from {
+                opacity: 0;
+                transform: translateX(-30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        .section-title {
+            font-size: 32px;
+            font-weight: 700;
+            color: #2d3748;
+            margin-bottom: 30px;
+            position: relative;
+            padding-left: 20px;
+        }
+
+        .section-title::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 6px;
+            height: 40px;
+            background: linear-gradient(135deg, #FF6B6B 0%, #FF8E53 100%);
+            border-radius: 3px;
+        }
+
+        /* Pain Points Styles */
+        .pain-points-container {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 25px;
+            margin-bottom: 40px;
+        }
+
+        .pain-point-card {
+            background: white;
+            border-left: 5px solid #667eea;
+            padding: 25px;
+            border-radius: 15px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease;
+        }
+
+        .pain-point-card:nth-child(1) { border-left-color: #667eea; }
+        .pain-point-card:nth-child(2) { border-left-color: #FF8E53; }
+        .pain-point-card:nth-child(3) { border-left-color: #9CA3AF; }
+        .pain-point-card:nth-child(4) { border-left-color: #FCD34D; }
+        .pain-point-card:nth-child(5) { border-left-color: #10b981; }
+        .pain-point-card:nth-child(6) { border-left-color: #8b5cf6; }
+
+        .pain-point-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+        }
+
+        .pain-number {
+            font-size: 36px;
+            font-weight: 900;
+            color: #667eea;
+            margin-bottom: 10px;
+        }
+
+        .pain-point-card:nth-child(2) .pain-number { color: #FF8E53; }
+        .pain-point-card:nth-child(3) .pain-number { color: #9CA3AF; }
+        .pain-point-card:nth-child(4) .pain-number { color: #FCD34D; }
+        .pain-point-card:nth-child(5) .pain-number { color: #10b981; }
+        .pain-point-card:nth-child(6) .pain-number { color: #8b5cf6; }
+
+        .pain-title {
+            font-size: 22px;
+            font-weight: 700;
+            color: #2d3748;
+            margin-bottom: 15px;
+        }
+
+        .pain-quote {
+            font-size: 16px;
+            color: #4a5568;
+            font-style: italic;
+            margin-bottom: 15px;
+            padding: 12px 15px;
+            background: #f7fafc;
+            border-radius: 8px;
+            line-height: 1.6;
+        }
+
+        .pain-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+        }
+
+        .pain-tag {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 8px 14px;
+            border-radius: 20px;
+            font-size: 13px;
+            font-weight: 600;
+            transition: transform 0.2s ease;
+        }
+
+        .pain-tag:hover {
+            transform: scale(1.05);
+        }
+
+        /* Core Functions Styles */
+        .core-functions {
+            background: linear-gradient(135deg, #fff7ed 0%, #ffedd5 100%);
+            padding: 50px 30px;
+            border-radius: 20px;
+            position: relative;
+            margin-bottom: 40px;
+        }
+
+        .function-center {
+            text-align: center;
+            margin-bottom: 50px;
+        }
+
+        .function-ai-icon {
+            font-size: 80px;
+            margin-bottom: 10px;
+            animation: floating 3s ease-in-out infinite;
+        }
+
+        @keyframes floating {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-20px); }
+        }
+
+        .function-ai-text {
+            font-size: 48px;
+            font-weight: 900;
+            background: linear-gradient(135deg, #FF6B6B 0%, #FF8E53 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .function-items {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+        }
+
+        .function-item {
+            background: white;
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease;
+        }
+
+        .function-item:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 12px 30px rgba(0, 0, 0, 0.15);
+        }
+
+        .function-icon {
+            font-size: 48px;
+            margin-bottom: 15px;
+        }
+
+        .function-title {
+            font-size: 24px;
+            font-weight: 700;
+            color: #2d3748;
+            margin-bottom: 15px;
+        }
+
+        .function-desc {
+            color: #4a5568;
+            line-height: 1.8;
+        }
+
+        .function-bullet {
+            padding: 12px 0;
+            padding-left: 20px;
+            position: relative;
+            font-size: 15px;
+            line-height: 1.7;
+        }
+
+        .function-bullet::before {
+            content: '✓';
+            position: absolute;
+            left: 0;
+            color: #FF6B6B;
+            font-weight: 900;
+            font-size: 18px;
+        }
+
+        /* Value Props */
+        .value-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 25px;
+            margin-bottom: 40px;
+        }
+
+        .value-card {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            padding: 30px;
+            border-radius: 20px;
+            color: white;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            cursor: pointer;
+        }
+
+        .value-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 40px rgba(102, 126, 234, 0.4);
+        }
+
+        .value-icon {
+            font-size: 48px;
+            margin-bottom: 15px;
+        }
+
+        .value-title {
+            font-size: 22px;
+            font-weight: 700;
+            margin-bottom: 10px;
+        }
+
+        .value-desc {
+            font-size: 15px;
+            line-height: 1.7;
+            opacity: 0.95;
+        }
+
+        .value-point {
+            padding: 6px 0;
+            font-size: 14px;
+        }
+
+        /* Platform Advantages Styles */
+        .platform-intro {
+            text-align: center;
+            font-size: 18px;
+            color: #4a5568;
+            margin-bottom: 40px;
+            font-weight: 500;
+            line-height: 1.6;
+        }
+
+        .platform-comparison {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(500px, 1fr));
+            gap: 30px;
+            margin-bottom: 30px;
+        }
+
+        .platform-card {
+            background: white;
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.12);
+            transition: all 0.3s ease;
+        }
+
+        .platform-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.2);
+        }
+
+        .platform-header {
+            padding: 30px;
+            background: linear-gradient(135deg, #FF9A56 0%, #FF6A88 100%);
+            color: white;
+            text-align: center;
+        }
+
+        .aws-platform .platform-header {
+            background: linear-gradient(135deg, #FF9A56 0%, #FF6A88 100%);
+        }
+
+        .volcano-platform .platform-header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        }
+
+        .platform-logo {
+            font-size: 60px;
+            margin-bottom: 15px;
+        }
+
+        .platform-name {
+            font-size: 28px;
+            font-weight: 700;
+            margin-bottom: 10px;
+        }
+
+        .platform-badge {
+            display: inline-block;
+            background: rgba(255, 255, 255, 0.3);
+            padding: 8px 20px;
+            border-radius: 50px;
+            font-size: 14px;
+            font-weight: 600;
+            backdrop-filter: blur(10px);
+        }
+
+        .platform-body {
+            padding: 30px;
+        }
+
+        .platform-section {
+            margin-bottom: 30px;
+        }
+
+        .platform-section:last-child {
+            margin-bottom: 0;
+        }
+
+        .platform-section-title {
+            font-size: 20px;
+            font-weight: 700;
+            color: #2d3748;
+            margin-bottom: 20px;
+            padding-bottom: 12px;
+            border-bottom: 2px solid #f3f4f6;
+        }
+
+        .platform-features {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        .platform-feature {
+            padding: 15px 18px;
+            background: #f7fafc;
+            border-radius: 10px;
+            font-size: 14px;
+            color: #4a5568;
+            line-height: 1.7;
+            border-left: 3px solid #667eea;
+        }
+
+        .aws-platform .platform-feature {
+            border-left-color: #FF9A56;
+        }
+
+        .volcano-platform .platform-feature {
+            border-left-color: #667eea;
+        }
+
+        .platform-feature strong {
+            color: #2d3748;
+            font-weight: 700;
+        }
+
+        .platform-footer {
+            background: linear-gradient(135deg, #fef3c7 0%, #fde68a 100%);
+            padding: 30px;
+            border-radius: 15px;
+            margin-top: 30px;
+        }
+
+        .footer-highlight {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+        }
+
+        .footer-icon {
+            font-size: 48px;
+            flex-shrink: 0;
+        }
+
+        .platform-footer .footer-text {
+            font-size: 17px;
+            color: #1f2937;
+            line-height: 1.7;
+            font-weight: 500;
+        }
+
+        .platform-footer .footer-text strong {
+            font-size: 19px;
+            color: #111827;
+            font-weight: 700;
+        }
+
+        /* Stats */
+        .stats-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+            margin-bottom: 40px;
+        }
+
+        .stat-box {
+            background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+            padding: 30px;
+            border-radius: 15px;
+            text-align: center;
+            color: white;
+            transition: transform 0.3s ease;
+        }
+
+        .stat-box:hover {
+            transform: scale(1.05);
+        }
+
+        .stat-number {
+            font-size: 48px;
+            font-weight: 900;
+            margin-bottom: 10px;
+        }
+
+        .stat-label {
+            font-size: 16px;
+            opacity: 0.95;
+            font-weight: 500;
+        }
+
+        /* Case Studies */
+        .case-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(500px, 1fr));
+            gap: 30px;
+            margin-bottom: 40px;
+        }
+
+        .case-card {
+            background: white;
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.12);
+            transition: all 0.3s ease;
+        }
+
+        .case-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.2);
+        }
+
+        .case-header {
+            padding: 30px;
+            background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+            color: white;
+        }
+
+        .case-industry {
+            font-size: 14px;
+            opacity: 0.9;
+            margin-bottom: 10px;
+            font-weight: 600;
+        }
+
+        .case-title {
+            font-size: 28px;
+            font-weight: 700;
+            margin-bottom: 15px;
+        }
+
+        .case-subtitle {
+            font-size: 16px;
+            opacity: 0.95;
+            line-height: 1.5;
+        }
+
+        .case-body {
+            padding: 30px;
+        }
+
+        .case-section {
+            margin-bottom: 30px;
+        }
+
+        .case-section:last-child {
+            margin-bottom: 0;
+        }
+
+        .case-section-title {
+            font-size: 18px;
+            font-weight: 700;
+            color: #2d3748;
+            margin-bottom: 12px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .case-section-icon {
+            font-size: 20px;
+        }
+
+        .case-list {
+            list-style: none;
+            padding: 0;
+        }
+
+        .case-list li {
+            padding: 10px 0;
+            padding-left: 25px;
+            position: relative;
+            color: #4a5568;
+            font-size: 15px;
+            line-height: 1.7;
+        }
+
+        .case-list li::before {
+            content: '▸';
+            position: absolute;
+            left: 0;
+            color: #4facfe;
+            font-weight: 900;
+        }
+
+        .case-results {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 15px;
+            margin-top: 20px;
+        }
+
+        .case-result-item {
+            background: linear-gradient(135deg, #ffecd2 0%, #fcb69f 100%);
+            padding: 15px;
+            border-radius: 10px;
+            text-align: center;
+        }
+
+        .case-result-number {
+            font-size: 32px;
+            font-weight: 900;
+            color: #2d3748;
+            margin-bottom: 5px;
+        }
+
+        .case-result-label {
+            font-size: 14px;
+            color: #4a5568;
+            font-weight: 500;
+        }
+
+        /* Process Section Styles */
+        .process-section {
+            background: linear-gradient(135deg, #e0f2fe 0%, #dbeafe 100%);
+            padding: 40px;
+            border-radius: 20px;
+            margin-bottom: 30px;
+        }
+
+        .process-title {
+            font-size: 24px;
+            font-weight: 700;
+            color: #2d3748;
+            margin-bottom: 25px;
+            text-align: center;
+        }
+
+        .process-flow {
+            display: flex;
+            align-items: flex-start;
+            justify-content: space-between;
+            gap: 15px;
+            flex-wrap: wrap;
+            margin-bottom: 20px;
+        }
+
+        .process-stage {
+            background: white;
+            padding: 25px 20px;
+            border-radius: 12px;
+            flex: 1;
+            min-width: 180px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease;
+        }
+
+        .process-stage:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 6px 18px rgba(0, 0, 0, 0.15);
+        }
+
+        .stage-title {
+            font-size: 18px;
+            font-weight: 700;
+            color: #667eea;
+            margin-bottom: 18px;
+            text-align: center;
+            padding-bottom: 12px;
+            border-bottom: 2px solid #667eea;
+        }
+
+        .stage-items {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .stage-item {
+            background: #f7fafc;
+            padding: 10px 12px;
+            border-radius: 6px;
+            font-size: 13px;
+            color: #4a5568;
+            text-align: center;
+            line-height: 1.4;
+        }
+
+        .process-arrow {
+            font-size: 28px;
+            color: #667eea;
+            font-weight: 900;
+            align-self: center;
+        }
+
+        .process-note {
+            background: white;
+            padding: 20px 25px;
+            border-radius: 10px;
+            font-size: 14px;
+            color: #4a5568;
+            line-height: 1.8;
+            border-left: 4px solid #667eea;
+        }
+
+        /* RAG Section Styles */
+        .rag-section {
+            background: linear-gradient(135deg, #fff7ed 0%, #ffedd5 100%);
+            padding: 40px;
+            border-radius: 20px;
+            margin-bottom: 30px;
+        }
+
+        .rag-flow {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+
+        .rag-step {
+            text-align: center;
+            transition: transform 0.3s ease;
+        }
+
+        .rag-step:hover {
+            transform: scale(1.05);
+        }
+
+        .rag-icon {
+            font-size: 36px;
+            margin-bottom: 5px;
+        }
+
+        .rag-label {
+            font-size: 14px;
+            color: #2d3748;
+            font-weight: 600;
+            margin-top: 5px;
+        }
+
+        .rag-box {
+            background: white;
+            padding: 15px 20px;
+            border-radius: 10px;
+            font-size: 14px;
+            font-weight: 600;
+            color: #2d3748;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+            min-width: 80px;
+            text-align: center;
+        }
+
+        .rag-box.highlight {
+            background: linear-gradient(135deg, #fbbf24 0%, #f59e0b 100%);
+            color: white;
+        }
+
+        .rag-box.success {
+            background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+            color: white;
+        }
+
+        .rag-box-dual {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .rag-box-item {
+            background: white;
+            padding: 10px 15px;
+            border-radius: 8px;
+            font-size: 13px;
+            font-weight: 600;
+            color: #2d3748;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+            text-align: center;
+        }
+
+        .rag-detail {
+            font-size: 11px;
+            color: #4a5568;
+            margin-top: 8px;
+            line-height: 1.5;
+            text-align: center;
+        }
+
+        .rag-arrow {
+            font-size: 24px;
+            color: #FF8E53;
+            font-weight: 900;
+        }
+
+        .rag-metadata {
+            background: white;
+            padding: 20px 25px;
+            border-radius: 10px;
+            text-align: center;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .metadata-box {
+            font-size: 14px;
+            color: #4a5568;
+            line-height: 1.6;
+        }
+
+        /* Optimization Section Styles */
+        .optimization-section {
+            background: linear-gradient(135deg, #fce7f3 0%, #fbcfe8 100%);
+            padding: 40px;
+            border-radius: 20px;
+            margin-bottom: 30px;
+        }
+
+        .opt-intro {
+            text-align: center;
+            font-size: 16px;
+            color: #2d3748;
+            margin-bottom: 30px;
+            font-weight: 600;
+            line-height: 1.6;
+        }
+
+        .opt-strategies {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 25px;
+            margin-bottom: 30px;
+        }
+
+        .opt-strategy-card {
+            background: white;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease;
+        }
+
+        .opt-strategy-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+        }
+
+        .opt-strategy-header {
+            background: linear-gradient(135deg, #ec4899 0%, #db2777 100%);
+            padding: 20px;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .opt-strategy-icon {
+            font-size: 32px;
+        }
+
+        .opt-strategy-title {
+            font-size: 20px;
+            font-weight: 700;
+            color: white;
+        }
+
+        .opt-strategy-content {
+            padding: 20px;
+        }
+
+        .opt-technique {
+            margin-bottom: 20px;
+            padding-bottom: 20px;
+            border-bottom: 1px solid #f3f4f6;
+        }
+
+        .opt-technique:last-child {
+            border-bottom: none;
+            margin-bottom: 0;
+            padding-bottom: 0;
+        }
+
+        .technique-name {
+            font-size: 16px;
+            font-weight: 700;
+            color: #2d3748;
+            margin-bottom: 10px;
+        }
+
+        .technique-desc {
+            font-size: 14px;
+            color: #4a5568;
+            line-height: 1.7;
+        }
+
+        .opt-summary {
+            background: white;
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .summary-title {
+            font-size: 20px;
+            font-weight: 700;
+            color: #2d3748;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+
+        .summary-items {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 20px;
+        }
+
+        .summary-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 12px;
+            padding: 18px 15px;
+            background: #f7fafc;
+            border-radius: 10px;
+            transition: transform 0.3s ease;
+        }
+
+        .summary-item:hover {
+            transform: translateX(5px);
+            background: #edf2f7;
+        }
+
+        .summary-icon {
+            font-size: 20px;
+            color: #10b981;
+            font-weight: 900;
+            flex-shrink: 0;
+        }
+
+        .summary-text {
+            font-size: 14px;
+            color: #4a5568;
+            line-height: 1.7;
+        }
+
+        /* Integration Section Styles */
+        .integration-section {
+            background: linear-gradient(135deg, #dbeafe 0%, #bfdbfe 100%);
+            padding: 40px;
+            border-radius: 20px;
+            margin-bottom: 30px;
+        }
+
+        .integration-flow {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 20px;
+        }
+
+        .integration-sources {
+            display: flex;
+            gap: 20px;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .source-cloud {
+            background: linear-gradient(135deg, #3b82f6 0%, #2563eb 100%);
+            color: white;
+            padding: 15px 30px;
+            border-radius: 50px;
+            font-size: 16px;
+            font-weight: 700;
+            box-shadow: 0 4px 15px rgba(59, 130, 246, 0.4);
+            transition: transform 0.3s ease;
+        }
+
+        .source-cloud:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 6px 20px rgba(59, 130, 246, 0.5);
+        }
+
+        .integration-arrow {
+            font-size: 32px;
+            color: #3b82f6;
+            font-weight: 900;
+        }
+
+        .integration-process {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+        .int-step {
+            background: white;
+            padding: 25px 20px;
+            border-radius: 12px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            max-width: 220px;
+            min-width: 180px;
+            transition: transform 0.3s ease;
+        }
+
+        .int-step:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 6px 18px rgba(0, 0, 0, 0.15);
+        }
+
+        .int-step.final {
+            background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+            color: white;
+            font-size: 18px;
+            font-weight: 700;
+            text-align: center;
+            padding: 25px 40px;
+        }
+
+        .int-step.final:hover {
+            transform: translateY(-3px) scale(1.02);
+        }
+
+        .int-title {
+            font-size: 15px;
+            font-weight: 700;
+            color: #2d3748;
+            margin-bottom: 10px;
+        }
+
+        .int-desc {
+            font-size: 13px;
+            color: #4a5568;
+            line-height: 1.6;
+            margin-bottom: 8px;
+        }
+
+        .int-note {
+            font-size: 11px;
+            color: #9ca3af;
+            font-style: italic;
+            line-height: 1.4;
+        }
+
+        .int-arrow {
+            font-size: 24px;
+            color: #3b82f6;
+            font-weight: 900;
+        }
+
+        /* CTA Section */
+        .cta-section {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            padding: 50px;
+            border-radius: 20px;
+            text-align: center;
+            color: white;
+        }
+
+        .cta-title {
+            font-size: 36px;
+            font-weight: 700;
+            margin-bottom: 20px;
+        }
+
+        .cta-desc {
+            font-size: 18px;
+            margin-bottom: 30px;
+            opacity: 0.95;
+            line-height: 1.6;
+        }
+
+        .cta-buttons {
+            display: flex;
+            gap: 20px;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .btn {
+            padding: 15px 40px;
+            border-radius: 50px;
+            font-size: 18px;
+            font-weight: 600;
+            border: none;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            display: inline-block;
+        }
+
+        .btn-primary {
+            background: white;
+            color: #667eea;
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 25px rgba(255, 255, 255, 0.3);
+        }
+
+        .btn-secondary {
+            background: transparent;
+            color: white;
+            border: 2px solid white;
+        }
+
+        .btn-secondary:hover {
+            background: white;
+            color: #667eea;
+        }
+
+        /* Footer */
+        .footer {
+            background: #2d3748;
+            padding: 40px 40px;
+            text-align: center;
+            color: white;
+        }
+
+        .footer-text {
+            font-size: 15px;
+            opacity: 1;
+            line-height: 1.8;
+            color: #e2e8f0;
+        }
+
+        @media (max-width: 1024px) {
+            .value-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .summary-items {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .logo {
+                font-size: 48px;
+                letter-spacing: 2px;
+            }
+            
+            .tagline {
+                font-size: 20px;
+                letter-spacing: 1px;
+            }
+            
+            .section-title {
+                font-size: 26px;
+            }
+            
+            .pain-points-container,
+            .value-grid,
+            .summary-items,
+            .case-container,
+            .opt-strategies,
+            .platform-comparison {
+                grid-template-columns: 1fr;
+            }
+            
+            .cta-title {
+                font-size: 28px;
+            }
+
+            .process-flow,
+            .rag-flow,
+            .integration-process {
+                flex-direction: column;
+                align-items: stretch;
+            }
+
+            .process-arrow,
+            .rag-arrow,
+            .int-arrow {
+                transform: rotate(90deg);
+                margin: 10px 0;
+            }
+
+            .process-stage,
+            .int-step {
+                min-width: 100%;
+                max-width: 100%;
+            }
+
+            .footer-highlight {
+                flex-direction: column;
+                text-align: center;
+            }
+
+            .content {
+                padding: 30px 20px;
+            }
+
+            .header {
+                padding: 40px 20px;
+            }
+
+            .function-items {
+                grid-template-columns: 1fr;
+            }
+
+            .stats-container {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        /* Print Styles - PDF优化 */
+        @media print {
+            body {
+                background: white;
+                padding: 0;
+            }
+
+            .poster {
+                box-shadow: none;
+                border-radius: 0;
+                max-width: 100%;
+            }
+
+            .section {
+                page-break-inside: avoid;
+            }
+
+            .pain-point-card,
+            .function-item,
+            .value-card,
+            .case-card,
+            .platform-card {
+                page-break-inside: avoid;
+            }
+
+            /* 保留背景色和渐变 */
+            * {
+                -webkit-print-color-adjust: exact !important;
+                print-color-adjust: exact !important;
+                color-adjust: exact !important;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="poster">
+        <!-- Header -->
+        <div class="header">
+            <div class="logo">🥞 菜煎饼</div>
+            <div class="tagline">为大型企业构建知识库及AI Agent解决方案</div>
+            <div class="platform-badges">
+                <div class="platform-badge">🌍 AWS全球版 - 海外企业</div>
+                <div class="platform-badge">🇨🇳 火山引擎版 - 国内企业</div>
+            </div>
+        </div>
+
+        <!-- Content -->
+        <div class="content">
+
+            <!-- Pain Points -->
+            <div class="section">
+                <h2 class="section-title">菜煎饼解决：企业知识与AI应用的六大痛点</h2>
+                <div class="pain-points-container">
+                    <div class="pain-point-card">
+                        <div class="pain-number">01</div>
+                        <div class="pain-title">获取与沉淀</div>
+                        <div class="pain-quote">"知识藏在员工脑子里，公司记不住"</div>
+                        <div class="pain-tags">
+                            <span class="pain-tag">专家体系缺失</span>
+                            <span class="pain-tag">知识流失严重</span>
+                            <span class="pain-tag">复盘流于形式</span>
+                            <span class="pain-tag">信息孤岛</span>
+                        </div>
+                    </div>
+                    <div class="pain-point-card">
+                        <div class="pain-number">02</div>
+                        <div class="pain-title">组织与存储</div>
+                        <div class="pain-quote">"知识像垃圾场，找东西全靠运气"</div>
+                        <div class="pain-tags">
+                            <span class="pain-tag">数字垃圾场</span>
+                            <span class="pain-tag">无统一标准</span>
+                            <span class="pain-tag">格式不统一</span>
+                            <span class="pain-tag">知识黑洞</span>
+                        </div>
+                    </div>
+                    <div class="pain-point-card">
+                        <div class="pain-number">03</div>
+                        <div class="pain-title">查找与发现</div>
+                        <div class="pain-quote">"我知道有这个资料，但我就是找不到"</div>
+                        <div class="pain-tags">
+                            <span class="pain-tag">搜索体验差</span>
+                            <span class="pain-tag">时间成本大</span>
+                            <span class="pain-tag">无主动推送</span>
+                            <span class="pain-tag">精准度低</span>
+                        </div>
+                    </div>
+                    <div class="pain-point-card">
+                        <div class="pain-number">04</div>
+                        <div class="pain-title">应用与创新</div>
+                        <div class="pain-quote">"知识库只是个摆设，与业务脱节"</div>
+                        <div class="pain-tags">
+                            <span class="pain-tag">与实践脱节</span>
+                            <span class="pain-tag">复用难</span>
+                            <span class="pain-tag">壁垒严重</span>
+                            <span class="pain-tag">知识分享难</span>
+                        </div>
+                    </div>
+                    <div class="pain-point-card">
+                        <div class="pain-number">05</div>
+                        <div class="pain-title">安全与合规</div>
+                        <div class="pain-quote">"数据泄露风险高，权限管理混乱"</div>
+                        <div class="pain-tags">
+                            <span class="pain-tag">权限管理混乱</span>
+                            <span class="pain-tag">数据泄露风险</span>
+                            <span class="pain-tag">审计追溯难</span>
+                            <span class="pain-tag">合规压力大</span>
+                        </div>
+                    </div>
+                    <div class="pain-point-card">
+                        <div class="pain-number">06</div>
+                        <div class="pain-title">成本与效率</div>
+                        <div class="pain-quote">"投入大量人力，效果却不理想"</div>
+                        <div class="pain-tags">
+                            <span class="pain-tag">人力成本高</span>
+                            <span class="pain-tag">重复劳动多</span>
+                            <span class="pain-tag">响应速度慢</span>
+                            <span class="pain-tag">ROI难衡量</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Core Functions -->
+            <div class="section">
+                <h2 class="section-title">菜煎饼 - 智能知识应用核心能力</h2>
+                <div class="core-functions">
+                    <div class="function-center">
+                        <div class="function-ai-icon">🤖</div>
+                        <div class="function-ai-text">AI驱动的智能知识中枢</div>
+                    </div>
+                    <div class="function-items">
+                        <div class="function-item">
+                            <div class="function-icon">🔧</div>
+                            <div class="function-title">智能知识预处理</div>
+                            <div class="function-desc">
+                                <div class="function-bullet"><strong>全格式智能解析</strong>：支持50+种文档格式，从常见的Word/PDF/Excel，到专业的CAD图纸、医学影像DICOM、GIS地理数据，全部自动识别处理</div>
+                                <div class="function-bullet"><strong>AI版面分析</strong>：基于多模态大模型，自动识别文档结构、提取标题层级、表格关系、图表信息，准确率达95%+</div>
+                                <div class="function-bullet"><strong>智能切片策略</strong>：根据文档类型自动选择最优切片方式（段落/表格/图形区域），保持语义完整性，避免信息丢失</div>
+                                <div class="function-bullet"><strong>元数据自动提取</strong>：智能提取摘要、关键词、文档标签、时间、部门等元信息，构建完整的知识图谱</div>
+                                <div class="function-bullet"><strong>多模态向量化</strong>：文本、图像、音视频统一向量化，支持跨模态检索和理解</div>
+                            </div>
+                        </div>
+                        <div class="function-item">
+                            <div class="function-icon">💡</div>
+                            <div class="function-title">智能知识查询</div>
+                            <div class="function-desc">
+                                <div class="function-bullet"><strong>自然语言交互</strong>：像聊天一样提问，支持文本、语音、图像多种输入方式，理解复杂的业务问题</div>
+                                <div class="function-bullet"><strong>混合检索引擎</strong>：向量检索+关键词检索+SQL查询三路并行，召回率提升40%，准确率提升30%</div>
+                                <div class="function-bullet"><strong>智能Rerank重排序</strong>：对召回结果进行二次精排，Top3准确率达90%+，确保最相关答案排在前面</div>
+                                <div class="function-bullet"><strong>答案溯源追踪</strong>：每个答案都标注来源文档、页码、置信度，支持一键跳转原文，确保信息可信</div>
+                                <div class="function-bullet"><strong>多轮对话理解</strong>：记忆上下文，支持追问、澄清、深入探讨，像真人专家一样交流</div>
+                            </div>
+                        </div>
+                        <div class="function-item">
+                            <div class="function-icon">🚀</div>
+                            <div class="function-title">知识AI应用</div>
+                            <div class="function-desc">
+                                <div class="function-bullet"><strong>智能客服Agent</strong>：7x24小时在线，自动回答常见问题，复杂问题智能转人工，客服效率提升3倍</div>
+                                <div class="function-bullet"><strong>文档自动生成</strong>：基于知识库自动生成报告、方案、PPT，从2小时缩短到10分钟</div>
+                                <div class="function-bullet"><strong>数据智能分析</strong>：自然语言提问，自动生成SQL查询和可视化图表，业务人员也能做数据分析</div>
+                                <div class="function-bullet"><strong>业务流程自动化</strong>：智能识别订单、合同、发票，自动提取信息并录入系统，准确率95%+</div>
+                                <div class="function-bullet"><strong>决策支持系统</strong>：基于历史数据和知识库，提供智能决策建议，辅助管理层决策</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Value Props -->
+            <div class="section">
+                <h2 class="section-title">菜煎饼带来的核心价值</h2>
+                <div class="value-grid">
+                    <div class="value-card">
+                        <div class="value-icon">⚡</div>
+                        <div class="value-title">效率倍增</div>
+                        <div class="value-desc">
+                            <div class="value-point">知识查询从30分钟缩短到3秒</div>
+                            <div class="value-point">文档处理效率提升10-20倍</div>
+                            <div class="value-point">重复性工作减少60-80%</div>
+                            <div class="value-point">新员工培训周期缩短50%</div>
+                        </div>
+                    </div>
+                    <div class="value-card">
+                        <div class="value-icon">💰</div>
+                        <div class="value-title">成本优化</div>
+                        <div class="value-desc">
+                            <div class="value-point">客服人力成本降低40%</div>
+                            <div class="value-point">运维工作量减少60%</div>
+                            <div class="value-point">文档管理成本降低70%</div>
+                            <div class="value-point">投资回报率ROI达10-20倍</div>
+                        </div>
+                    </div>
+                    <div class="value-card">
+                        <div class="value-icon">🎯</div>
+                        <div class="value-title">精准可靠</div>
+                        <div class="value-desc">
+                            <div class="value-point">知识检索准确率95%+</div>
+                            <div class="value-point">答案溯源，信息可追踪</div>
+                            <div class="value-point">多模型交叉验证，降低幻觉</div>
+                            <div class="value-point">持续学习优化，越用越准</div>
+                        </div>
+                    </div>
+                    <div class="value-card">
+                        <div class="value-icon">🔒</div>
+                        <div class="value-title">安全合规</div>
+                        <div class="value-desc">
+                            <div class="value-point">企业级多租户隔离</div>
+                            <div class="value-point">知识库级+文档级权限控制</div>
+                            <div class="value-point">数据加密传输和存储</div>
+                            <div class="value-point">完整审计日志，满足合规要求</div>
+                        </div>
+                    </div>
+                    <div class="value-card">
+                        <div class="value-icon">🌐</div>
+                        <div class="value-title">灵活扩展</div>
+                        <div class="value-desc">
+                            <div class="value-point">支持私有化部署和云端部署</div>
+                            <div class="value-point">API开放，轻松集成现有系统</div>
+                            <div class="value-point">支持第三方数据源接入</div>
+                            <div class="value-point">模块化设计，按需定制</div>
+                        </div>
+                    </div>
+                    <div class="value-card">
+                        <div class="value-icon">🚀</div>
+                        <div class="value-title">快速落地</div>
+                        <div class="value-desc">
+                            <div class="value-point">快速部署，高效落地</div>
+                            <div class="value-point">开箱即用，无需复杂配置</div>
+                            <div class="value-point">提供完整培训和文档</div>
+                            <div class="value-point">7x24技术支持保障</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Platform Advantages -->
+            <div class="section">
+                <h2 class="section-title">菜煎饼的技术平台优势</h2>
+                <div class="platform-intro">
+                    基于全球领先的AI平台，为不同地区客户提供最优解决方案
+                </div>
+                <div class="platform-comparison">
+                    <!-- AWS Platform -->
+                    <div class="platform-card aws-platform">
+                        <div class="platform-header">
+                            <div class="platform-logo">☁️</div>
+                            <div class="platform-name">AWS AI 全球版</div>
+                            <div class="platform-badge">海外企业首选</div>
+                        </div>
+                        <div class="platform-body">
+                            <div class="platform-section">
+                                <div class="platform-section-title">🏆 全球领先的AI能力</div>
+                                <div class="platform-features">
+                                    <div class="platform-feature">
+                                        <strong>Amazon Bedrock</strong>：集成Claude、Titan等顶级大模型，支持多模型切换，性能卓越
+                                    </div>
+                                    <div class="platform-feature">
+                                        <strong>Bedrock Agent</strong>：业界最强的AI Agent编排能力，支持复杂业务流程自动化
+                                    </div>
+                                    <div class="platform-feature">
+                                        <strong>Bedrock Data Automation</strong>：专业的文档智能处理，支持复杂表格、图纸、多语言文档
+                                    </div>
+                                    <div class="platform-feature">
+                                        <strong>Amazon Textract</strong>：OCR识别准确率业界第一，支持手写体、复杂表格
+                                    </div>
+                                    <div class="platform-feature">
+                                        <strong>Amazon Rekognition</strong>：图像识别和视频分析能力强大，支持工业图纸识别
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="platform-section">
+                                <div class="platform-section-title">🌍 全球化部署优势</div>
+                                <div class="platform-features">
+                                    <div class="platform-feature">覆盖全球33个地理区域，就近部署，低延迟访问</div>
+                                    <div class="platform-feature">符合GDPR、HIPAA等国际合规标准，满足跨国企业需求</div>
+                                    <div class="platform-feature">多语言支持，服务全球200+国家和地区</div>
+                                    <div class="platform-feature">99.99%高可用性SLA保障，企业级稳定性</div>
+                                </div>
+                            </div>
+                            <div class="platform-section">
+                                <div class="platform-section-title">💡 我们的实施经验</div>
+                                <div class="platform-features">
+                                    <div class="platform-feature">✓ AWS官方认证解决方案架构师团队</div>
+                                    <div class="platform-feature">✓ 服务多家跨国企业，涵盖制造、金融、医疗等行业</div>
+                                    <div class="platform-feature">✓ 深度理解AWS AI服务特性，最佳实践经验丰富</div>
+                                    <div class="platform-feature">✓ 提供从咨询、实施到运维的全生命周期服务</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Volcano Engine Platform -->
+                    <div class="platform-card volcano-platform">
+                        <div class="platform-header">
+                            <div class="platform-logo">🔥</div>
+                            <div class="platform-name">火山引擎 国内版</div>
+                            <div class="platform-badge">国内企业首选</div>
+                        </div>
+                        <div class="platform-body">
+                            <div class="platform-section">
+                                <div class="platform-section-title">🏆 字节跳动技术底座</div>
+                                <div class="platform-features">
+                                    <div class="platform-feature">
+                                        <strong>豆包大模型</strong>：字节跳动自研，中文理解能力超强，支持32k长上下文
+                                    </div>
+                                    <div class="platform-feature">
+                                        <strong>Coze企业版</strong>：低代码AI应用开发平台，快速上线，降低开发门槛
+                                    </div>
+                                    <div class="platform-feature">
+                                        <strong>火山OCR</strong>：针对中文优化，支持中文手写体、复杂表格、发票识别
+                                    </div>
+                                    <div class="platform-feature">
+                                        <strong>火山语音</strong>：中文ASR/TTS业界领先，支持方言识别
+                                    </div>
+                                    <div class="platform-feature">
+                                        <strong>火山知识库</strong>：专为中文优化的RAG能力，检索准确率更高
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="platform-section">
+                                <div class="platform-section-title">🇨🇳 本土化优势</div>
+                                <div class="platform-features">
+                                    <div class="platform-feature">国内数据中心，访问速度快，延迟低至10ms</div>
+                                    <div class="platform-feature">符合国内数据安全和隐私保护法规要求</div>
+                                    <div class="platform-feature">中文技术支持，响应及时，沟通无障碍</div>
+                                    <div class="platform-feature">价格优势明显，成本比国际平台低30-50%</div>
+                                </div>
+                            </div>
+                            <div class="platform-section">
+                                <div class="platform-section-title">💡 我们的实施经验</div>
+                                <div class="platform-features">
+                                    <div class="platform-feature">✓ 火山引擎官方合作伙伴，深度技术支持</div>
+                                    <div class="platform-feature">✓ 服务多家国内头部企业，涵盖制造、食品、零售等行业</div>
+                                    <div class="platform-feature">✓ 精通Coze平台开发，快速交付能力强</div>
+                                    <div class="platform-feature">✓ 提供从POC验证到规模化部署的完整方案</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="platform-footer">
+                    <div class="footer-highlight">
+                        <div class="footer-icon">🎯</div>
+                        <div class="footer-text">
+                            <strong>双平台能力，一站式服务</strong>：无论您的业务在国内还是海外，我们都能提供最适合的技术方案和专业的实施服务
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Knowledge Processing & Query Architecture -->
+            <div class="section">
+                <h2 class="section-title">菜煎饼 - 知识处理与查询技术架构</h2>
+                
+                <!-- 文档预处理流程 -->
+                <div class="process-section">
+                    <h3 class="process-title">📄 文档预处理流程</h3>
+                    <div class="process-flow">
+                        <div class="process-stage">
+                            <div class="stage-title">版面分析</div>
+                            <div class="stage-items">
+                                <div class="stage-item">Word 处理策略</div>
+                                <div class="stage-item">Excel 处理策略</div>
+                                <div class="stage-item">PPT 处理策略</div>
+                                <div class="stage-item">PDF 处理策略</div>
+                                <div class="stage-item">JPG 处理策略</div>
+                                <div class="stage-item">其它文档处理策略</div>
+                            </div>
+                        </div>
+                        <div class="process-arrow">→</div>
+                        <div class="process-stage">
+                            <div class="stage-title">文档超信息提取</div>
+                            <div class="stage-items">
+                                <div class="stage-item">摘要提取</div>
+                                <div class="stage-item">关键词提取</div>
+                                <div class="stage-item">文档标签提取</div>
+                            </div>
+                        </div>
+                        <div class="process-arrow">→</div>
+                        <div class="process-stage">
+                            <div class="stage-title">多策略切片</div>
+                            <div class="stage-items">
+                                <div class="stage-item">段落切片策略</div>
+                                <div class="stage-item">表格切片策略</div>
+                                <div class="stage-item">图形区域切片策略</div>
+                            </div>
+                        </div>
+                        <div class="process-arrow">→</div>
+                        <div class="process-stage">
+                            <div class="stage-title">向量化存储</div>
+                            <div class="stage-items">
+                                <div class="stage-item">向量数据库</div>
+                                <div class="stage-item">ES数据库</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="process-note">
+                        <strong>核心技术：</strong>支持多种数据格式文件，采用Transformer神经网络对文档进行向量化 | 合并段落、识别章节 | 512窗口切片
+                    </div>
+                </div>
+
+                <!-- RAG流程图 -->
+                <div class="rag-section">
+                    <h3 class="process-title">🔍 RAG检索增强生成流程</h3>
+                    <div class="rag-flow">
+                        <div class="rag-step">
+                            <div class="rag-icon">👤</div>
+                            <div class="rag-label">用户</div>
+                        </div>
+                        <div class="rag-arrow">→</div>
+                        <div class="rag-step">
+                            <div class="rag-box">问题分析</div>
+                            <div class="rag-detail">提取问题关键词<br>扩写问题</div>
+                        </div>
+                        <div class="rag-arrow">→</div>
+                        <div class="rag-step">
+                            <div class="rag-box-dual">
+                                <div class="rag-box-item">向量化搜索</div>
+                                <div class="rag-box-item">ES搜索</div>
+                            </div>
+                        </div>
+                        <div class="rag-arrow">→</div>
+                        <div class="rag-step">
+                            <div class="rag-box">合并</div>
+                        </div>
+                        <div class="rag-arrow">→</div>
+                        <div class="rag-step">
+                            <div class="rag-box highlight">Rerank<br>重排序</div>
+                            <div class="rag-detail">7分以上：高度相关<br>3-7分：一般相关<br>1-3分：可能相关<br>&lt;1分：无关</div>
+                        </div>
+                        <div class="rag-arrow">→</div>
+                        <div class="rag-step">
+                            <div class="rag-box">大模型<br>二次判别</div>
+                        </div>
+                        <div class="rag-arrow">→</div>
+                        <div class="rag-step">
+                            <div class="rag-box success">大模型<br>生成答案</div>
+                        </div>
+                    </div>
+                    <div class="rag-metadata">
+                        <div class="metadata-box">
+                            <strong>自动提取文档 MetaData</strong>
+                            <div>提供排序依据</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 检索优化策略 -->
+                <div class="optimization-section">
+                    <h3 class="process-title">🎯 检索优化策略</h3>
+                    <div class="opt-intro">
+                        通过多维度优化技术，显著提升知识检索的准确率和召回率
+                    </div>
+                    
+                    <div class="opt-strategies">
+                        <!-- 策略1 -->
+                        <div class="opt-strategy-card">
+                            <div class="opt-strategy-header">
+                                <div class="opt-strategy-icon">🔍</div>
+                                <div class="opt-strategy-title">混合检索策略</div>
+                            </div>
+                            <div class="opt-strategy-content">
+                                <div class="opt-technique">
+                                    <div class="technique-name">向量检索 + 关键词检索</div>
+                                    <div class="technique-desc">结合语义理解和精确匹配，提升召回率和准确率</div>
+                                </div>
+                                <div class="opt-technique">
+                                    <div class="technique-name">多路召回融合</div>
+                                    <div class="technique-desc">从向量库、ES、结构化数据库多路召回，综合排序</div>
+                                </div>
+                                <div class="opt-technique">
+                                    <div class="technique-name">权重动态调整</div>
+                                    <div class="technique-desc">根据文档类型和查询场景，动态调整不同检索方式的权重</div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- 策略2 -->
+                        <div class="opt-strategy-card">
+                            <div class="opt-strategy-header">
+                                <div class="opt-strategy-icon">📝</div>
+                                <div class="opt-strategy-title">查询优化</div>
+                            </div>
+                            <div class="opt-strategy-content">
+                                <div class="opt-technique">
+                                    <div class="technique-name">问题扩写与改写</div>
+                                    <div class="technique-desc">使用大模型扩展用户问题，增加同义词、相关词，提高召回</div>
+                                </div>
+                                <div class="opt-technique">
+                                    <div class="technique-name">关键词提取</div>
+                                    <div class="technique-desc">从用户问题中提取核心关键词，用于精确匹配</div>
+                                </div>
+                                <div class="opt-technique">
+                                    <div class="technique-name">意图识别</div>
+                                    <div class="technique-desc">识别用户查询意图（事实查询、对比分析、操作指导等），选择最优检索策略</div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- 策略3 -->
+                        <div class="opt-strategy-card">
+                            <div class="opt-strategy-header">
+                                <div class="opt-strategy-icon">⚖️</div>
+                                <div class="opt-strategy-title">Rerank重排序</div>
+                            </div>
+                            <div class="opt-strategy-content">
+                                <div class="opt-technique">
+                                    <div class="technique-name">相关性二次评分</div>
+                                    <div class="technique-desc">使用专门的Rerank模型对召回结果进行精准相关性评分</div>
+                                </div>
+                                <div class="opt-technique">
+                                    <div class="technique-name">上下文匹配度</div>
+                                    <div class="technique-desc">评估文档片段与问题的语义匹配程度，过滤低相关内容</div>
+                                </div>
+                                <div class="opt-technique">
+                                    <div class="technique-name">多因素综合排序</div>
+                                    <div class="technique-desc">结合相关性、时效性、权威性、用户反馈等多维度排序</div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- 策略4 -->
+                        <div class="opt-strategy-card">
+                            <div class="opt-strategy-header">
+                                <div class="opt-strategy-icon">🏷️</div>
+                                <div class="opt-strategy-title">元数据增强</div>
+                            </div>
+                            <div class="opt-strategy-content">
+                                <div class="opt-technique">
+                                    <div class="technique-name">文档标签体系</div>
+                                    <div class="technique-desc">自动提取文档类型、部门、主题、关键词等标签，支持精准过滤</div>
+                                </div>
+                                <div class="opt-technique">
+                                    <div class="technique-name">字段权重配置</div>
+                                    <div class="technique-desc">标题权重5、摘要权重4、正文权重1，重要信息优先召回</div>
+                                </div>
+                                <div class="opt-technique">
+                                    <div class="technique-name">时间衰减因子</div>
+                                    <div class="technique-desc">新文档权重更高，确保返回最新、最准确的信息</div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- 策略5 -->
+                        <div class="opt-strategy-card">
+                            <div class="opt-strategy-header">
+                                <div class="opt-strategy-icon">🧠</div>
+                                <div class="opt-strategy-title">模型微调</div>
+                            </div>
+                            <div class="opt-strategy-content">
+                                <div class="opt-technique">
+                                    <div class="technique-name">Embedding模型微调</div>
+                                    <div class="technique-desc">使用企业专有数据微调向量模型，提升领域适配性</div>
+                                </div>
+                                <div class="opt-technique">
+                                    <div class="technique-name">Rerank模型训练</div>
+                                    <div class="technique-desc">基于用户反馈数据训练重排序模型，持续优化排序效果</div>
+                                </div>
+                                <div class="opt-technique">
+                                    <div class="technique-name">负样本挖掘</div>
+                                    <div class="technique-desc">收集错误召回案例作为负样本，提升模型区分能力</div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- 策略6 -->
+                        <div class="opt-strategy-card">
+                            <div class="opt-strategy-header">
+                                <div class="opt-strategy-icon">📊</div>
+                                <div class="opt-strategy-title">反馈闭环优化</div>
+                            </div>
+                            <div class="opt-strategy-content">
+                                <div class="opt-technique">
+                                    <div class="technique-name">用户反馈收集</div>
+                                    <div class="technique-desc">收集点赞/点踩、点击率、停留时间等用户行为数据</div>
+                                </div>
+                                <div class="opt-technique">
+                                    <div class="technique-name">Bad Case分析</div>
+                                    <div class="technique-desc">定期分析低分答案，识别问题模式，针对性优化</div>
+                                </div>
+                                <div class="opt-technique">
+                                    <div class="technique-name">A/B测试</div>
+                                    <div class="technique-desc">对比不同策略效果，数据驱动持续迭代优化</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="opt-summary">
+                        <div class="summary-title">优化效果</div>
+                        <div class="summary-items">
+                            <div class="summary-item">
+                                <div class="summary-icon">✓</div>
+                                <div class="summary-text">召回率提升：从单一检索提升到混合检索</div>
+                            </div>
+                            <div class="summary-item">
+                                <div class="summary-icon">✓</div>
+                                <div class="summary-text">准确率提升：通过Rerank重排序，显著提升Top3准确率</div>
+                            </div>
+                            <div class="summary-item">
+                                <div class="summary-icon">✓</div>
+                                <div class="summary-text">响应速度：优化后平均响应时间控制在秒级</div>
+                            </div>
+                            <div class="summary-item">
+                                <div class="summary-icon">✓</div>
+                                <div class="summary-text">用户满意度：持续优化后，用户满意度持续提升</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 第三方文档系统、互联网知识集成 -->
+                <div class="integration-section">
+                    <h3 class="process-title">🔗 第三方文档系统、互联网知识集成</h3>
+                    <div class="integration-flow">
+                        <div class="integration-sources">
+                            <div class="source-cloud">Web</div>
+                            <div class="source-cloud">Confluence</div>
+                            <div class="source-cloud">SharePoint</div>
+                        </div>
+                        <div class="integration-arrow">↓</div>
+                        <div class="integration-process">
+                            <div class="int-step">
+                                <div class="int-title">搜索文档、页面</div>
+                                <div class="int-desc">基于用户问题，利用文档管理系统REST API获取相关的文档、网页信息</div>
+                                <div class="int-note">问题→文档搜索，提供智能给出的文档搜索词或文档名称</div>
+                            </div>
+                            <div class="int-arrow">→</div>
+                            <div class="int-step">
+                                <div class="int-title">获取内容</div>
+                                <div class="int-desc">利用REST API获取文档的内容详情</div>
+                            </div>
+                            <div class="int-arrow">→</div>
+                            <div class="int-step">
+                                <div class="int-title">内容分析、阅读</div>
+                                <div class="int-desc">对文档内容进行分析：判断内容是否与用户问题相关、确定相关文档的内容、总结文档长度</div>
+                            </div>
+                            <div class="int-arrow">→</div>
+                            <div class="int-step">
+                                <div class="int-title">RAG答案生成</div>
+                                <div class="int-desc">基于相关文档内容，用户问题，按照要求生成答案</div>
+                            </div>
+                            <div class="int-arrow">→</div>
+                            <div class="int-step final">
+                                <div class="int-title">答案</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Embedding & Rerank优化 -->
+            </div>
+
+            <!-- Case Studies -->
+            <div class="section">
+                <h2 class="section-title">菜煎饼成功案例</h2>
+                <div class="case-container">
+                    <!-- Case 1: 芯片制造业 -->
+                    <div class="case-card">
+                        <div class="case-header">
+                            <div class="case-industry">🔬 芯片制造业</div>
+                            <div class="case-title">智能化订单与采购系统</div>
+                            <div class="case-subtitle">基于火山引擎Coze的芯片行业AI应用</div>
+                        </div>
+                        <div class="case-body">
+                            <div class="case-section">
+                                <div class="case-section-title">
+                                    <span class="case-section-icon">🎯</span>
+                                    业务挑战
+                                </div>
+                                <ul class="case-list">
+                                    <li>芯片型号数千种，技术参数复杂，客户选型困难</li>
+                                    <li>订单处理、采购流程人工操作繁琐，每单10-15分钟</li>
+                                    <li>技术资料查询效率低，依赖人工客服</li>
+                                    <li>数据分析需求高，报表制作耗时</li>
+                                </ul>
+                            </div>
+                            <div class="case-section">
+                                <div class="case-section-title">
+                                    <span class="case-section-icon">💡</span>
+                                    解决方案
+                                </div>
+                                <ul class="case-list">
+                                    <li><strong>智能下单助手</strong>：拍照芯片→AI识别型号→快速下单</li>
+                                    <li><strong>智能采购系统</strong>：拍照请购单→AI提取信息→自动生成采购单</li>
+                                    <li><strong>芯片知识库</strong>：5000+型号Datasheet智能问答</li>
+                                    <li><strong>数据分析助手</strong>：自然语言提问→自动生成报表</li>
+                                </ul>
+                            </div>
+                            <div class="case-section">
+                                <div class="case-section-title">
+                                    <span class="case-section-icon">📊</span>
+                                    核心价值
+                                </div>
+                                <ul class="case-list">
+                                    <li>订单处理自动化，大幅提升业务效率</li>
+                                    <li>采购流程智能化，减少人工错误</li>
+                                    <li>技术资料快速查询，降低客服压力</li>
+                                    <li>数据分析自动化，支持业务决策</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Case 2: 食品制造业 -->
+                    <div class="case-card">
+                        <div class="case-header" style="background: linear-gradient(135deg, #fa709a 0%, #fee140 100%);">
+                            <div class="case-industry">🍜 食品制造业</div>
+                            <div class="case-title">企业知识管理AI助手</div>
+                            <div class="case-subtitle">服务全员的企业知识管理平台</div>
+                        </div>
+                        <div class="case-body">
+                            <div class="case-section">
+                                <div class="case-section-title">
+                                    <span class="case-section-icon">🎯</span>
+                                    业务挑战
+                                </div>
+                                <ul class="case-list">
+                                    <li>新员工对内部术语和缩写不熟悉，融入困难</li>
+                                    <li>员工查找政策文档耗时长，效率低下</li>
+                                    <li>运维和HR部门重复回答相同问题，工作量大</li>
+                                    <li>知识散落各处，缺乏统一管理</li>
+                                </ul>
+                            </div>
+                            <div class="case-section">
+                                <div class="case-section-title">
+                                    <span class="case-section-icon">💡</span>
+                                    解决方案
+                                </div>
+                                <ul class="case-list">
+                                    <li><strong>企业微信集成</strong>：全员无缝接入，自然对话式交互</li>
+                                    <li><strong>RAG知识库</strong>：HR政策、差旅报销、系统操作、内部术语</li>
+                                    <li><strong>快速部署</strong>：基于PaaS平台，快速上线验证</li>
+                                    <li><strong>工具箱升级</strong>：AI生成PPT、文件转换、文档问答</li>
+                                </ul>
+                            </div>
+                            <div class="case-section">
+                                <div class="case-section-title">
+                                    <span class="case-section-icon">📊</span>
+                                    核心价值
+                                </div>
+                                <ul class="case-list">
+                                    <li>快速响应员工查询，提升工作效率</li>
+                                    <li>减少重复性咨询，释放人力资源</li>
+                                    <li>加速新员工融入，降低培训成本</li>
+                                    <li>知识统一管理，便于更新维护</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- CTA -->
+            <div class="section">
+                <div class="cta-section">
+                    <div class="cta-title">开启智能知识管理之旅</div>
+                    <div class="cta-desc">立即体验菜煎饼，让AI重构您的企业知识中枢</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Footer -->
+        <div class="footer">
+            <div class="footer-text">
+                © 2025 菜煎饼 | 支持AWS全球版 &amp; 火山引擎国内版 | 版本 v2.0
+            </div>
+            <div class="footer-text" style="margin-top: 10px;">
+                邮箱: sales@caijianbing.ai | 电话: 400-XXX-XXXX | 网站: www.caijianbing.ai
+            </div>
+        </div>
+    </div>
+</body>
+</html>
