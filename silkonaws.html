@@ -1,0 +1,1311 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SILK - 基于AWS的企业智能知识库解决方案</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', sans-serif;
+            background: linear-gradient(135deg, #FF9900 0%, #232F3E 100%);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+            overflow-x: hidden;
+        }
+
+        .poster {
+            max-width: 1200px;
+            width: 100%;
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 30px;
+            box-shadow: 0 30px 60px rgba(0, 0, 0, 0.3);
+            overflow: hidden;
+            animation: fadeIn 1s ease-out;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .header {
+            background: linear-gradient(135deg, #FF9900 0%, #232F3E 100%);
+            padding: 60px 40px;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .header::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(255,255,255,0.1) 0%, transparent 70%);
+            animation: rotate 20s linear infinite;
+        }
+
+        @keyframes rotate {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+
+        .logo {
+            font-size: 72px;
+            font-weight: 900;
+            color: white;
+            text-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+            margin-bottom: 20px;
+            position: relative;
+            z-index: 1;
+            letter-spacing: 8px;
+        }
+
+        .tagline {
+            font-size: 28px;
+            color: rgba(255, 255, 255, 0.95);
+            font-weight: 300;
+            position: relative;
+            z-index: 1;
+            letter-spacing: 2px;
+            margin-bottom: 20px;
+        }
+
+        .aws-badge {
+            display: inline-block;
+            background: rgba(255, 255, 255, 0.2);
+            padding: 12px 28px;
+            border-radius: 50px;
+            font-size: 16px;
+            color: white;
+            font-weight: 600;
+            backdrop-filter: blur(10px);
+            border: 2px solid rgba(255, 255, 255, 0.3);
+            margin-top: 10px;
+        }
+
+        .content {
+            padding: 50px 40px;
+        }
+
+        .section {
+            margin-bottom: 50px;
+            animation: slideIn 0.8s ease-out;
+        }
+
+        .section:last-child {
+            margin-bottom: 0;
+        }
+
+        @keyframes slideIn {
+            from {
+                opacity: 0;
+                transform: translateX(-30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        .section-title {
+            font-size: 32px;
+            font-weight: 700;
+            color: #2d3748;
+            margin-bottom: 30px;
+            position: relative;
+            padding-left: 20px;
+        }
+
+        .section-title::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 6px;
+            height: 40px;
+            background: linear-gradient(135deg, #FF9900 0%, #232F3E 100%);
+            border-radius: 3px;
+        }
+
+        /* Pain Points Styles */
+        .pain-points-container {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 25px;
+            margin-bottom: 40px;
+        }
+
+        .pain-point-card {
+            background: white;
+            border-left: 5px solid #FF9900;
+            padding: 25px;
+            border-radius: 15px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease;
+        }
+
+        .pain-point-card:nth-child(2) { border-left-color: #232F3E; }
+        .pain-point-card:nth-child(3) { border-left-color: #FF9900; }
+        .pain-point-card:nth-child(4) { border-left-color: #146EB4; }
+        .pain-point-card:nth-child(5) { border-left-color: #FF9900; }
+        .pain-point-card:nth-child(6) { border-left-color: #232F3E; }
+
+        .pain-point-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+        }
+
+        .pain-number {
+            font-size: 36px;
+            font-weight: 900;
+            color: #FF9900;
+            margin-bottom: 10px;
+        }
+
+        .pain-point-card:nth-child(2) .pain-number { color: #232F3E; }
+        .pain-point-card:nth-child(3) .pain-number { color: #FF9900; }
+        .pain-point-card:nth-child(4) .pain-number { color: #146EB4; }
+        .pain-point-card:nth-child(5) .pain-number { color: #FF9900; }
+        .pain-point-card:nth-child(6) .pain-number { color: #232F3E; }
+
+        .pain-title {
+            font-size: 22px;
+            font-weight: 700;
+            color: #2d3748;
+            margin-bottom: 15px;
+        }
+
+        .pain-quote {
+            font-size: 16px;
+            color: #4a5568;
+            font-style: italic;
+            margin-bottom: 15px;
+            padding: 12px 15px;
+            background: #f7fafc;
+            border-radius: 8px;
+            line-height: 1.6;
+        }
+
+        .pain-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+        }
+
+        .pain-tag {
+            background: linear-gradient(135deg, #FF9900 0%, #232F3E 100%);
+            color: white;
+            padding: 8px 14px;
+            border-radius: 20px;
+            font-size: 13px;
+            font-weight: 600;
+            transition: transform 0.2s ease;
+        }
+
+        .pain-tag:hover {
+            transform: scale(1.05);
+        }
+
+        /* AWS Services Styles */
+        .aws-services {
+            background: linear-gradient(135deg, #fff7ed 0%, #ffedd5 100%);
+            padding: 50px 30px;
+            border-radius: 20px;
+            position: relative;
+            margin-bottom: 40px;
+        }
+
+        .service-center {
+            text-align: center;
+            margin-bottom: 50px;
+        }
+
+        .service-icon {
+            font-size: 80px;
+            margin-bottom: 10px;
+            animation: floating 3s ease-in-out infinite;
+        }
+
+        @keyframes floating {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-20px); }
+        }
+
+        .service-text {
+            font-size: 48px;
+            font-weight: 900;
+            background: linear-gradient(135deg, #FF9900 0%, #232F3E 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .service-items {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+        }
+
+        .service-item {
+            background: white;
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease;
+        }
+
+        .service-item:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 12px 30px rgba(0, 0, 0, 0.15);
+        }
+
+        .service-item-icon {
+            font-size: 48px;
+            margin-bottom: 15px;
+        }
+
+        .service-item-title {
+            font-size: 24px;
+            font-weight: 700;
+            color: #2d3748;
+            margin-bottom: 15px;
+        }
+
+        .service-item-desc {
+            color: #4a5568;
+            line-height: 1.8;
+        }
+
+        .service-bullet {
+            padding: 12px 0;
+            padding-left: 20px;
+            position: relative;
+            font-size: 15px;
+            line-height: 1.7;
+        }
+
+        .service-bullet::before {
+            content: '✓';
+            position: absolute;
+            left: 0;
+            color: #FF9900;
+            font-weight: 900;
+            font-size: 18px;
+        }
+
+        /* Value Props */
+        .value-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 25px;
+            margin-bottom: 40px;
+        }
+
+        .value-card {
+            background: linear-gradient(135deg, #FF9900 0%, #232F3E 100%);
+            padding: 30px;
+            border-radius: 20px;
+            color: white;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            cursor: pointer;
+        }
+
+        .value-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 40px rgba(255, 153, 0, 0.4);
+        }
+
+        .value-icon {
+            font-size: 48px;
+            margin-bottom: 15px;
+        }
+
+        .value-title {
+            font-size: 22px;
+            font-weight: 700;
+            margin-bottom: 10px;
+        }
+
+        .value-desc {
+            font-size: 15px;
+            line-height: 1.7;
+            opacity: 0.95;
+        }
+
+        .value-point {
+            padding: 6px 0;
+            font-size: 14px;
+        }
+
+        /* Architecture Styles */
+        .architecture-section {
+            background: linear-gradient(135deg, #e0f2fe 0%, #dbeafe 100%);
+            padding: 40px;
+            border-radius: 20px;
+            margin-bottom: 30px;
+        }
+
+        .arch-title {
+            font-size: 24px;
+            font-weight: 700;
+            color: #2d3748;
+            margin-bottom: 25px;
+            text-align: center;
+        }
+
+        .arch-flow {
+            display: flex;
+            align-items: flex-start;
+            justify-content: space-between;
+            gap: 15px;
+            flex-wrap: wrap;
+            margin-bottom: 20px;
+        }
+
+        .arch-stage {
+            background: white;
+            padding: 25px 20px;
+            border-radius: 12px;
+            flex: 1;
+            min-width: 180px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease;
+        }
+
+        .arch-stage:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 6px 18px rgba(0, 0, 0, 0.15);
+        }
+
+        .arch-stage-title {
+            font-size: 18px;
+            font-weight: 700;
+            color: #FF9900;
+            margin-bottom: 18px;
+            text-align: center;
+            padding-bottom: 12px;
+            border-bottom: 2px solid #FF9900;
+        }
+
+        .arch-stage-items {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .arch-stage-item {
+            background: #f7fafc;
+            padding: 10px 12px;
+            border-radius: 6px;
+            font-size: 13px;
+            color: #4a5568;
+            text-align: center;
+            line-height: 1.4;
+        }
+
+        .arch-arrow {
+            font-size: 28px;
+            color: #FF9900;
+            font-weight: 900;
+            align-self: center;
+        }
+
+        .arch-note {
+            background: white;
+            padding: 20px 25px;
+            border-radius: 10px;
+            font-size: 14px;
+            color: #4a5568;
+            line-height: 1.8;
+            border-left: 4px solid #FF9900;
+        }
+
+        /* Format Support Table */
+        .format-table {
+            background: white;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+            margin-bottom: 30px;
+        }
+
+        .format-table table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        .format-table th {
+            background: linear-gradient(135deg, #FF9900 0%, #232F3E 100%);
+            color: white;
+            padding: 15px;
+            text-align: left;
+            font-weight: 600;
+            font-size: 14px;
+        }
+
+        .format-table td {
+            padding: 12px 15px;
+            border-bottom: 1px solid #f3f4f6;
+            font-size: 13px;
+            color: #4a5568;
+        }
+
+        .format-table tr:last-child td {
+            border-bottom: none;
+        }
+
+        .format-table tr:hover {
+            background: #f7fafc;
+        }
+
+        /* Case Studies */
+        .case-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(500px, 1fr));
+            gap: 30px;
+            margin-bottom: 40px;
+        }
+
+        .case-card {
+            background: white;
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.12);
+            transition: all 0.3s ease;
+        }
+
+        .case-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.2);
+        }
+
+        .case-header {
+            padding: 30px;
+            background: linear-gradient(135deg, #FF9900 0%, #232F3E 100%);
+            color: white;
+        }
+
+        .case-industry {
+            font-size: 14px;
+            opacity: 0.9;
+            margin-bottom: 10px;
+            font-weight: 600;
+        }
+
+        .case-title {
+            font-size: 28px;
+            font-weight: 700;
+            margin-bottom: 15px;
+        }
+
+        .case-subtitle {
+            font-size: 16px;
+            opacity: 0.95;
+            line-height: 1.5;
+        }
+
+        .case-body {
+            padding: 30px;
+        }
+
+        .case-section {
+            margin-bottom: 30px;
+        }
+
+        .case-section:last-child {
+            margin-bottom: 0;
+        }
+
+        .case-section-title {
+            font-size: 18px;
+            font-weight: 700;
+            color: #2d3748;
+            margin-bottom: 12px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .case-section-icon {
+            font-size: 20px;
+        }
+
+        .case-list {
+            list-style: none;
+            padding: 0;
+        }
+
+        .case-list li {
+            padding: 10px 0;
+            padding-left: 25px;
+            position: relative;
+            color: #4a5568;
+            font-size: 15px;
+            line-height: 1.7;
+        }
+
+        .case-list li::before {
+            content: '▸';
+            position: absolute;
+            left: 0;
+            color: #FF9900;
+            font-weight: 900;
+        }
+
+        /* CTA Section */
+        .cta-section {
+            background: linear-gradient(135deg, #FF9900 0%, #232F3E 100%);
+            padding: 50px;
+            border-radius: 20px;
+            text-align: center;
+            color: white;
+        }
+
+        .cta-title {
+            font-size: 36px;
+            font-weight: 700;
+            margin-bottom: 20px;
+        }
+
+        .cta-desc {
+            font-size: 18px;
+            margin-bottom: 30px;
+            opacity: 0.95;
+            line-height: 1.6;
+        }
+
+        .cta-buttons {
+            display: flex;
+            gap: 20px;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .btn {
+            padding: 15px 40px;
+            border-radius: 50px;
+            font-size: 18px;
+            font-weight: 600;
+            border: none;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            display: inline-block;
+        }
+
+        .btn-primary {
+            background: white;
+            color: #FF9900;
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 25px rgba(255, 255, 255, 0.3);
+        }
+
+        .btn-secondary {
+            background: transparent;
+            color: white;
+            border: 2px solid white;
+        }
+
+        .btn-secondary:hover {
+            background: white;
+            color: #FF9900;
+        }
+
+        /* Footer */
+        .footer {
+            background: #232F3E;
+            padding: 40px 40px;
+            text-align: center;
+            color: white;
+        }
+
+        .footer-text {
+            font-size: 15px;
+            opacity: 1;
+            line-height: 1.8;
+            color: #e2e8f0;
+        }
+
+        @media (max-width: 1024px) {
+            .value-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @media (max-width: 768px) {
+            .logo {
+                font-size: 48px;
+                letter-spacing: 2px;
+            }
+            
+            .tagline {
+                font-size: 20px;
+                letter-spacing: 1px;
+            }
+            
+            .section-title {
+                font-size: 26px;
+            }
+            
+            .pain-points-container,
+            .value-grid,
+            .case-container {
+                grid-template-columns: 1fr;
+            }
+            
+            .cta-title {
+                font-size: 28px;
+            }
+
+            .arch-flow {
+                flex-direction: column;
+                align-items: stretch;
+            }
+
+            .arch-arrow {
+                transform: rotate(90deg);
+                margin: 10px 0;
+            }
+
+            .arch-stage {
+                min-width: 100%;
+                max-width: 100%;
+            }
+
+            .content {
+                padding: 30px 20px;
+            }
+
+            .header {
+                padding: 40px 20px;
+            }
+
+            .service-items {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @media print {
+            @page {
+                size: A4;
+                margin: 10mm;
+            }
+
+            body {
+                margin: 0;
+                padding: 0;
+                background: white;
+            }
+            
+            .poster {
+                box-shadow: none;
+                border-radius: 0;
+                max-width: 100%;
+                background: white;
+            }
+
+            * {
+                -webkit-print-color-adjust: exact !important;
+                print-color-adjust: exact !important;
+                color-adjust: exact !important;
+            }
+
+            .section {
+                page-break-inside: avoid;
+                margin-bottom: 25px;
+            }
+
+            .pain-point-card,
+            .service-item,
+            .value-card,
+            .case-card,
+            .architecture-section {
+                page-break-inside: avoid;
+            }
+
+            .pain-points-container,
+            .value-grid,
+            .case-container {
+                page-break-inside: auto;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="poster">
+        <!-- Header -->
+        <div class="header">
+            <div class="logo">SILK</div>
+            <div class="tagline">基于AWS的企业智能知识库解决方案</div>
+            <div class="aws-badge">🚀 Powered by Amazon Web Services</div>
+        </div>
+
+        <!-- Content -->
+        <div class="content">
+
+            <!-- Pain Points -->
+            <div class="section">
+                <h2 class="section-title">SILK解决：企业知识管理的六大痛点</h2>
+                <div class="pain-points-container">
+                    <div class="pain-point-card">
+                        <div class="pain-number">01</div>
+                        <div class="pain-title">获取与沉淀</div>
+                        <div class="pain-quote">"知识藏在员工脑子里，公司记不住"</div>
+                        <div class="pain-tags">
+                            <span class="pain-tag">专家体系缺失</span>
+                            <span class="pain-tag">知识流失严重</span>
+                            <span class="pain-tag">复盘流于形式</span>
+                            <span class="pain-tag">信息孤岛</span>
+                        </div>
+                    </div>
+                    <div class="pain-point-card">
+                        <div class="pain-number">02</div>
+                        <div class="pain-title">组织与存储</div>
+                        <div class="pain-quote">"知识像垃圾场，找东西全靠运气"</div>
+                        <div class="pain-tags">
+                            <span class="pain-tag">数字垃圾场</span>
+                            <span class="pain-tag">无统一标准</span>
+                            <span class="pain-tag">格式不统一</span>
+                            <span class="pain-tag">知识黑洞</span>
+                        </div>
+                    </div>
+                    <div class="pain-point-card">
+                        <div class="pain-number">03</div>
+                        <div class="pain-title">查找与发现</div>
+                        <div class="pain-quote">"我知道有这个资料，但我就是找不到"</div>
+                        <div class="pain-tags">
+                            <span class="pain-tag">搜索体验差</span>
+                            <span class="pain-tag">时间成本大</span>
+                            <span class="pain-tag">无主动推送</span>
+                            <span class="pain-tag">精准度低</span>
+                        </div>
+                    </div>
+                    <div class="pain-point-card">
+                        <div class="pain-number">04</div>
+                        <div class="pain-title">应用与创新</div>
+                        <div class="pain-quote">"知识库只是个摆设，与业务脱节"</div>
+                        <div class="pain-tags">
+                            <span class="pain-tag">与实践脱节</span>
+                            <span class="pain-tag">复用难</span>
+                            <span class="pain-tag">壁垒严重</span>
+                            <span class="pain-tag">知识分享难</span>
+                        </div>
+                    </div>
+                    <div class="pain-point-card">
+                        <div class="pain-number">05</div>
+                        <div class="pain-title">安全与合规</div>
+                        <div class="pain-quote">"数据泄露风险高，权限管理混乱"</div>
+                        <div class="pain-tags">
+                            <span class="pain-tag">权限管理混乱</span>
+                            <span class="pain-tag">数据泄露风险</span>
+                            <span class="pain-tag">审计追溯难</span>
+                            <span class="pain-tag">合规压力大</span>
+                        </div>
+                    </div>
+                    <div class="pain-point-card">
+                        <div class="pain-number">06</div>
+                        <div class="pain-title">成本与效率</div>
+                        <div class="pain-quote">"投入大量人力，效果却不理想"</div>
+                        <div class="pain-tags">
+                            <span class="pain-tag">人力成本高</span>
+                            <span class="pain-tag">重复劳动多</span>
+                            <span class="pain-tag">响应速度慢</span>
+                            <span class="pain-tag">ROI难衡量</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- AWS Services -->
+            <div class="section">
+                <h2 class="section-title">SILK - 基于AWS AI服务的核心能力</h2>
+                <div class="aws-services">
+                    <div class="service-center">
+                        <div class="service-icon">☁️</div>
+                        <div class="service-text">AWS AI 全栈技术</div>
+                    </div>
+                    <div class="service-items">
+                        <div class="service-item">
+                            <div class="service-item-icon">🤖</div>
+                            <div class="service-item-title">Amazon Bedrock</div>
+                            <div class="service-item-desc">
+                                <div class="service-bullet"><strong>Claude & Titan模型</strong>：顶级大模型能力，支持多模型切换</div>
+                                <div class="service-bullet"><strong>Bedrock Agent</strong>：业界最强的AI Agent编排，支持复杂业务流程自动化</div>
+                                <div class="service-bullet"><strong>Knowledge Base</strong>：托管式RAG服务，开箱即用的向量检索</div>
+                                <div class="service-bullet"><strong>Data Automation</strong>：专业文档智能处理，支持复杂表格、图纸、多语言</div>
+                            </div>
+                        </div>
+                        <div class="service-item">
+                            <div class="service-item-icon">📄</div>
+                            <div class="service-item-title">文档智能处理</div>
+                            <div class="service-item-desc">
+                                <div class="service-bullet"><strong>Amazon Textract</strong>：OCR识别准确率业界第一，支持手写体、复杂表格</div>
+                                <div class="service-bullet"><strong>版面分析</strong>：自动识别文档结构、提取标题层级、表格关系</div>
+                                <div class="service-bullet"><strong>多格式支持</strong>：Word/PDF/Excel/PPT等50+种格式自动解析</div>
+                                <div class="service-bullet"><strong>元数据提取</strong>：智能提取摘要、关键词、分类标签</div>
+                            </div>
+                        </div>
+                        <div class="service-item">
+                            <div class="service-item-icon">🔍</div>
+                            <div class="service-item-title">智能检索与查询</div>
+                            <div class="service-item-desc">
+                                <div class="service-bullet"><strong>OpenSearch Service</strong>：高性能向量检索，支持语义搜索</div>
+                                <div class="service-bullet"><strong>混合检索</strong>：向量检索+关键词检索+SQL查询三路并行</div>
+                                <div class="service-bullet"><strong>智能路由</strong>：自动识别查询意图，选择最优检索策略</div>
+                                <div class="service-bullet"><strong>Rerank重排序</strong>：二次精排，Top3准确率达90%+</div>
+                            </div>
+                        </div>
+                        <div class="service-item">
+                            <div class="service-item-icon">🖼️</div>
+                            <div class="service-item-title">多模态数据处理</div>
+                            <div class="service-item-desc">
+                                <div class="service-bullet"><strong>Amazon Rekognition</strong>：图像识别和视频分析，支持工业图纸识别</div>
+                                <div class="service-bullet"><strong>Amazon Transcribe</strong>：语音转文本，支持多语言和方言</div>
+                                <div class="service-bullet"><strong>多模态向量化</strong>：文本、图像、音视频统一向量化</div>
+                                <div class="service-bullet"><strong>跨模态检索</strong>：支持图文混合检索和理解</div>
+                            </div>
+                        </div>
+                        <div class="service-item">
+                            <div class="service-item-icon">🗄️</div>
+                            <div class="service-item-title">混合数据架构</div>
+                            <div class="service-item-desc">
+                                <div class="service-bullet"><strong>非结构化存储</strong>：OpenSearch向量库，支持语义检索</div>
+                                <div class="service-bullet"><strong>结构化存储</strong>：Redshift/RDS，支持SQL精确查询</div>
+                                <div class="service-bullet"><strong>对象存储</strong>：S3存储原始文件，支持版本管理</div>
+                                <div class="service-bullet"><strong>智能融合</strong>：Agent自动选择最优数据源，结果智能融合</div>
+                            </div>
+                        </div>
+                        <div class="service-item">
+                            <div class="service-item-icon">🔒</div>
+                            <div class="service-item-title">企业级安全合规</div>
+                            <div class="service-item-desc">
+                                <div class="service-bullet"><strong>多租户隔离</strong>：企业级数据隔离，IAM精细权限控制</div>
+                                <div class="service-bullet"><strong>数据加密</strong>：KMS加密存储，TLS传输加密</div>
+                                <div class="service-bullet"><strong>审计日志</strong>：CloudTrail完整操作记录，满足合规要求</div>
+                                <div class="service-bullet"><strong>高可用性</strong>：多AZ部署，99.99% SLA保障</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Value Props -->
+            <div class="section">
+                <h2 class="section-title">SILK带来的核心价值</h2>
+                <div class="value-grid">
+                    <div class="value-card">
+                        <div class="value-icon">⚡</div>
+                        <div class="value-title">效率倍增</div>
+                        <div class="value-desc">
+                            <div class="value-point">• 知识查询从30分钟缩短到3秒</div>
+                            <div class="value-point">• 文档处理效率提升10-20倍</div>
+                            <div class="value-point">• 重复性工作减少60-80%</div>
+                            <div class="value-point">• 新员工培训周期缩短50%</div>
+                        </div>
+                    </div>
+                    <div class="value-card">
+                        <div class="value-icon">💰</div>
+                        <div class="value-title">成本优化</div>
+                        <div class="value-desc">
+                            <div class="value-point">• 客服人力成本降低40%</div>
+                            <div class="value-point">• 运维工作量减少60%</div>
+                            <div class="value-point">• 文档管理成本降低70%</div>
+                            <div class="value-point">• 投资回报率ROI达10-20倍</div>
+                        </div>
+                    </div>
+                    <div class="value-card">
+                        <div class="value-icon">🎯</div>
+                        <div class="value-title">精准可靠</div>
+                        <div class="value-desc">
+                            <div class="value-point">• 知识检索准确率95%+</div>
+                            <div class="value-point">• 答案溯源，信息可追踪</div>
+                            <div class="value-point">• 多模型交叉验证，降低幻觉</div>
+                            <div class="value-point">• 持续学习优化，越用越准</div>
+                        </div>
+                    </div>
+                    <div class="value-card">
+                        <div class="value-icon">🔒</div>
+                        <div class="value-title">安全合规</div>
+                        <div class="value-desc">
+                            <div class="value-point">• 企业级多租户隔离</div>
+                            <div class="value-point">• 知识库级+文档级权限控制</div>
+                            <div class="value-point">• 数据加密传输和存储</div>
+                            <div class="value-point">• 完整审计日志，满足合规要求</div>
+                        </div>
+                    </div>
+                    <div class="value-card">
+                        <div class="value-icon">🌐</div>
+                        <div class="value-title">全球化部署</div>
+                        <div class="value-desc">
+                            <div class="value-point">• 覆盖全球33个地理区域</div>
+                            <div class="value-point">• 符合GDPR、HIPAA等国际标准</div>
+                            <div class="value-point">• 多语言支持，服务全球</div>
+                            <div class="value-point">• 就近部署，低延迟访问</div>
+                        </div>
+                    </div>
+                    <div class="value-card">
+                        <div class="value-icon">🚀</div>
+                        <div class="value-title">快速落地</div>
+                        <div class="value-desc">
+                            <div class="value-point">• 1-2周快速部署上线</div>
+                            <div class="value-point">• 基于AWS托管服务，无需运维</div>
+                            <div class="value-point">• 开箱即用，无需复杂配置</div>
+                            <div class="value-point">• 7x24技术支持保障</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Architecture -->
+            <div class="section">
+                <h2 class="section-title">SILK - 技术架构与处理流程</h2>
+                
+                <!-- 文档预处理流程 -->
+                <div class="architecture-section">
+                    <h3 class="arch-title">📄 文档预处理流程</h3>
+                    <div class="arch-flow">
+                        <div class="arch-stage">
+                            <div class="arch-stage-title">版面分析</div>
+                            <div class="arch-stage-items">
+                                <div class="arch-stage-item">Word 处理策略</div>
+                                <div class="arch-stage-item">Excel 处理策略</div>
+                                <div class="arch-stage-item">PPT 处理策略</div>
+                                <div class="arch-stage-item">PDF 处理策略</div>
+                                <div class="arch-stage-item">图像 处理策略</div>
+                                <div class="arch-stage-item">其它文档处理</div>
+                            </div>
+                        </div>
+                        <div class="arch-arrow">→</div>
+                        <div class="arch-stage">
+                            <div class="arch-stage-title">元数据提取</div>
+                            <div class="arch-stage-items">
+                                <div class="arch-stage-item">摘要提取</div>
+                                <div class="arch-stage-item">关键词提取</div>
+                                <div class="arch-stage-item">文档标签提取</div>
+                                <div class="arch-stage-item">分类识别</div>
+                            </div>
+                        </div>
+                        <div class="arch-arrow">→</div>
+                        <div class="arch-stage">
+                            <div class="arch-stage-title">多策略切片</div>
+                            <div class="arch-stage-items">
+                                <div class="arch-stage-item">段落切片策略</div>
+                                <div class="arch-stage-item">表格切片策略</div>
+                                <div class="arch-stage-item">图形区域切片</div>
+                                <div class="arch-stage-item">滑动窗口切片</div>
+                            </div>
+                        </div>
+                        <div class="arch-arrow">→</div>
+                        <div class="arch-stage">
+                            <div class="arch-stage-title">向量化存储</div>
+                            <div class="arch-stage-items">
+                                <div class="arch-stage-item">Titan Embeddings</div>
+                                <div class="arch-stage-item">OpenSearch向量库</div>
+                                <div class="arch-stage-item">Redshift结构化库</div>
+                                <div class="arch-stage-item">S3原始文件</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="arch-note">
+                        <strong>核心技术：</strong>基于Bedrock Data Automation和Textract，支持50+种文档格式 | 采用Transformer神经网络进行向量化 | 智能合并段落、识别章节 | 512-1024窗口切片，保持语义完整性
+                    </div>
+                </div>
+
+                <!-- 混合RAG架构 -->
+                <div class="architecture-section" style="background: linear-gradient(135deg, #fff7ed 0%, #ffedd5 100%);">
+                    <h3 class="arch-title">🔍 混合RAG检索架构</h3>
+                    <div class="arch-flow">
+                        <div class="arch-stage">
+                            <div class="arch-stage-title">用户查询</div>
+                            <div class="arch-stage-items">
+                                <div class="arch-stage-item">自然语言问题</div>
+                                <div class="arch-stage-item">意图识别</div>
+                            </div>
+                        </div>
+                        <div class="arch-arrow">→</div>
+                        <div class="arch-stage">
+                            <div class="arch-stage-title">Bedrock Agent</div>
+                            <div class="arch-stage-items">
+                                <div class="arch-stage-item">查询分析</div>
+                                <div class="arch-stage-item">智能路由决策</div>
+                                <div class="arch-stage-item">工具选择</div>
+                            </div>
+                        </div>
+                        <div class="arch-arrow">→</div>
+                        <div class="arch-stage">
+                            <div class="arch-stage-title">并行检索</div>
+                            <div class="arch-stage-items">
+                                <div class="arch-stage-item">Knowledge Base</div>
+                                <div class="arch-stage-item">Redshift SQL</div>
+                                <div class="arch-stage-item">S3文档</div>
+                            </div>
+                        </div>
+                        <div class="arch-arrow">→</div>
+                        <div class="arch-stage">
+                            <div class="arch-stage-title">结果融合</div>
+                            <div class="arch-stage-items">
+                                <div class="arch-stage-item">Rerank重排序</div>
+                                <div class="arch-stage-item">上下文增强</div>
+                                <div class="arch-stage-item">答案生成</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="arch-note">
+                        <strong>智能路由策略：</strong>语义查询 → Knowledge Base向量检索 | 精确查询 → Redshift SQL查询 | 混合查询 → 多路并行召回 + 智能融合 | 准确率提升40%，召回率提升30%
+                    </div>
+                </div>
+            </div>
+
+            <!-- Format Support -->
+            <div class="section">
+                <h2 class="section-title">全格式支持能力</h2>
+                
+                <div class="format-table">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>文件类型</th>
+                                <th>文档特征</th>
+                                <th>AWS组件</th>
+                                <th>处理方式</th>
+                                <th>向量化</th>
+                                <th>存储</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>.txt, .md, .rtf</td>
+                                <td>纯文本</td>
+                                <td>Bedrock默认解析器</td>
+                                <td>直接文本提取</td>
+                                <td>Titan Embeddings</td>
+                                <td>OpenSearch</td>
+                            </tr>
+                            <tr>
+                                <td>.doc/.docx</td>
+                                <td>Office文档</td>
+                                <td>Amazon Textract</td>
+                                <td>文档结构分析</td>
+                                <td>Titan Embeddings</td>
+                                <td>OpenSearch</td>
+                            </tr>
+                            <tr>
+                                <td>.pdf (数字)</td>
+                                <td>数字PDF</td>
+                                <td>Bedrock默认解析器</td>
+                                <td>文本提取</td>
+                                <td>Titan Embeddings</td>
+                                <td>OpenSearch</td>
+                            </tr>
+                            <tr>
+                                <td>.pdf (扫描)</td>
+                                <td>扫描PDF</td>
+                                <td>Amazon Textract</td>
+                                <td>OCR + 结构分析</td>
+                                <td>Titan Embeddings</td>
+                                <td>OpenSearch</td>
+                            </tr>
+                            <tr>
+                                <td>.xlsx/.csv</td>
+                                <td>电子表格</td>
+                                <td>Textract / BDA</td>
+                                <td>表格提取</td>
+                                <td>可选向量化</td>
+                                <td>Redshift</td>
+                            </tr>
+                            <tr>
+                                <td>.jpg/.png</td>
+                                <td>普通图像</td>
+                                <td>Amazon Rekognition</td>
+                                <td>对象识别</td>
+                                <td>CLIP Embeddings</td>
+                                <td>OpenSearch</td>
+                            </tr>
+                            <tr>
+                                <td>.jpg/.png</td>
+                                <td>文档图像</td>
+                                <td>Bedrock Data Automation</td>
+                                <td>多模态解析</td>
+                                <td>Multimodal Embeddings</td>
+                                <td>OpenSearch</td>
+                            </tr>
+                            <tr>
+                                <td>.mp3/.wav</td>
+                                <td>音频文件</td>
+                                <td>Amazon Transcribe</td>
+                                <td>语音转文本</td>
+                                <td>Text Embeddings</td>
+                                <td>OpenSearch/S3</td>
+                            </tr>
+                            <tr>
+                                <td>.mp4/.avi</td>
+                                <td>视频文件</td>
+                                <td>BDA + Rekognition Video</td>
+                                <td>多模态分析</td>
+                                <td>Multimodal Embeddings</td>
+                                <td>OpenSearch/S3</td>
+                            </tr>
+                            <tr>
+                                <td>.dwg/.dxf</td>
+                                <td>CAD设计</td>
+                                <td>自定义Lambda</td>
+                                <td>格式转换 + 分析</td>
+                                <td>Custom Embeddings</td>
+                                <td>OpenSearch</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- Case Studies -->
+            <div class="section">
+                <h2 class="section-title">SILK成功案例</h2>
+                <div class="case-container">
+                    <!-- Case 1: 制造业 -->
+                    <div class="case-card">
+                        <div class="case-header">
+                            <div class="case-industry">🏭 制造业</div>
+                            <div class="case-title">企业知识管理平台</div>
+                            <div class="case-subtitle">基于AWS的全格式知识库解决方案</div>
+                        </div>
+                        <div class="case-body">
+                            <div class="case-section">
+                                <div class="case-section-title">
+                                    <span class="case-section-icon">🎯</span>
+                                    业务挑战
+                                </div>
+                                <ul class="case-list">
+                                    <li>员工5000+人，技术文档10万+份</li>
+                                    <li>包含大量CAD图纸和工艺文档，格式复杂</li>
+                                    <li>文档检索效率低，依赖人工查找</li>
+                                    <li>知识沉淀困难，新员工培训周期长</li>
+                                </ul>
+                            </div>
+                            <div class="case-section">
+                                <div class="case-section-title">
+                                    <span class="case-section-icon">💡</span>
+                                    解决方案
+                                </div>
+                                <ul class="case-list">
+                                    <li><strong>全格式支持</strong>：Textract + BDA处理CAD图纸和复杂文档</li>
+                                    <li><strong>智能检索</strong>：Knowledge Base语义搜索 + Redshift精确查询</li>
+                                    <li><strong>多模态理解</strong>：Rekognition识别工业图纸，提取技术参数</li>
+                                    <li><strong>权限管理</strong>：IAM多租户隔离，部门级权限控制</li>
+                                </ul>
+                            </div>
+                            <div class="case-section">
+                                <div class="case-section-title">
+                                    <span class="case-section-icon">📊</span>
+                                    实施效果
+                                </div>
+                                <ul class="case-list">
+                                    <li>文档检索效率提升80%，从30分钟降至3秒</li>
+                                    <li>新员工培训周期缩短50%，从4周降至2周</li>
+                                    <li>知识复用率提升60%，减少重复劳动</li>
+                                    <li>部署周期仅2周，基于AWS托管服务快速上线</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Case 2: 金融业 -->
+                    <div class="case-card">
+                        <div class="case-header" style="background: linear-gradient(135deg, #146EB4 0%, #232F3E 100%);">
+                            <div class="case-industry">🏦 金融业</div>
+                            <div class="case-title">智能客服系统</div>
+                            <div class="case-subtitle">基于Bedrock Agent的智能问答平台</div>
+                        </div>
+                        <div class="case-body">
+                            <div class="case-section">
+                                <div class="case-section-title">
+                                    <span class="case-section-icon">🎯</span>
+                                    业务挑战
+                                </div>
+                                <ul class="case-list">
+                                    <li>日均咨询量10万+，人工客服压力大</li>
+                                    <li>产品文档复杂多变，客服培训成本高</li>
+                                    <li>合规要求严格，需要完整审计日志</li>
+                                    <li>需要7x24小时服务，人力成本高</li>
+                                </ul>
+                            </div>
+                            <div class="case-section">
+                                <div class="case-section-title">
+                                    <span class="case-section-icon">💡</span>
+                                    解决方案
+                                </div>
+                                <ul class="case-list">
+                                    <li><strong>Bedrock Agent</strong>：智能意图识别，多轮对话理解</li>
+                                    <li><strong>混合检索</strong>：产品文档向量检索 + 政策法规SQL查询</li>
+                                    <li><strong>安全合规</strong>：KMS加密 + CloudTrail审计 + IAM权限控制</li>
+                                    <li><strong>高可用</strong>：多AZ部署，99.99% SLA保障</li>
+                                </ul>
+                            </div>
+                            <div class="case-section">
+                                <div class="case-section-title">
+                                    <span class="case-section-icon">📊</span>
+                                    实施效果
+                                </div>
+                                <ul class="case-list">
+                                    <li>客服响应速度提升70%，平均响应时间从5分钟降至1.5分钟</li>
+                                    <li>人工客服成本降低40%，AI处理60%常见问题</li>
+                                    <li>客户满意度提升25%，问题解决率达85%</li>
+                                    <li>完整审计日志，满足金融行业合规要求</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- CTA -->
+            <div class="section">
+                <div class="cta-section">
+                    <div class="cta-title">开启AWS智能知识管理之旅</div>
+                    <div class="cta-desc">立即体验SILK，基于AWS全栈AI服务，重构您的企业知识中枢</div>
+                    <div class="cta-buttons">
+                        <button class="btn btn-primary">申请Demo</button>
+                        <button class="btn btn-secondary">联系我们</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Footer -->
+        <div class="footer">
+            <div class="footer-text">
+                © 2025 SILK | Powered by Amazon Web Services | 版本 v1.0
+            </div>
+            <div class="footer-text" style="margin-top: 10px;">
+                <strong>核心AWS服务：</strong>Amazon Bedrock | Textract | Rekognition | Transcribe | OpenSearch | Redshift | S3
+            </div>
+            <div class="footer-text" style="margin-top: 10px;">
+                邮箱: info@silk-ai.com | 电话: 400-XXX-XXXX | 网站: www.silk-ai.com
+            </div>
+        </div>
+    </div>
+</body>
+</html>
