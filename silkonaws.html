@@ -265,6 +265,10 @@
             gap: 30px;
         }
 
+        .service-items.four-columns {
+            grid-template-columns: repeat(4, 1fr);
+        }
+
         .service-item {
             background: white;
             padding: 30px;
@@ -652,6 +656,10 @@
             .value-grid {
                 grid-template-columns: repeat(2, 1fr);
             }
+
+            .service-items.four-columns {
+                grid-template-columns: repeat(2, 1fr);
+            }
         }
 
         @media (max-width: 768px) {
@@ -672,6 +680,11 @@
             .pain-points-container,
             .value-grid,
             .case-container {
+                grid-template-columns: 1fr;
+            }
+
+            .service-items,
+            .service-items.four-columns {
                 grid-template-columns: 1fr;
             }
             
@@ -732,6 +745,67 @@
                 color-adjust: exact !important;
             }
 
+            /* 首页占满一页 */
+            .header {
+                min-height: 277mm;
+                display: flex;
+                flex-direction: column;
+                justify-content: center;
+                align-items: center;
+                page-break-after: always;
+                padding: 80px 40px;
+            }
+
+            .logo {
+                font-size: 120px;
+                margin-bottom: 50px;
+            }
+
+            .tagline {
+                font-size: 36px;
+                margin-bottom: 60px;
+            }
+
+            .aws-badge {
+                font-size: 20px;
+                padding: 20px 40px;
+            }
+
+            /* 实施经验部分占满一页 */
+            #implementation-experience {
+                min-height: 277mm;
+                page-break-before: always;
+                page-break-after: always;
+                display: flex;
+                flex-direction: column;
+                justify-content: flex-start;
+                padding-top: 20px;
+            }
+
+            #implementation-experience .aws-services {
+                flex: 1;
+                display: flex;
+                flex-direction: column;
+                justify-content: space-around;
+            }
+
+            /* 尾页占满一页 */
+            .footer {
+                min-height: 277mm;
+                display: flex;
+                flex-direction: column;
+                justify-content: center;
+                align-items: center;
+                page-break-before: always;
+                padding: 80px 40px;
+            }
+
+            .footer-text {
+                font-size: 18px;
+                line-height: 2.5;
+                margin: 30px 0;
+            }
+
             .section {
                 page-break-inside: avoid;
                 margin-bottom: 25px;
@@ -760,7 +834,7 @@
         <div class="header">
             <div class="logo">SILK</div>
             <div class="tagline">基于AWS的企业智能知识库解决方案</div>
-            <div class="aws-badge">🚀 Powered by Amazon Web Services</div>
+            <div class="aws-badge">🚀 Leveraging AWS AI Services</div>
         </div>
 
         <!-- Content -->
@@ -920,27 +994,27 @@
                         <div class="value-icon">⚡</div>
                         <div class="value-title">效率倍增</div>
                         <div class="value-desc">
-                            <div class="value-point">• 知识查询从30分钟缩短到3秒</div>
-                            <div class="value-point">• 文档处理效率提升10-20倍</div>
-                            <div class="value-point">• 重复性工作减少60-80%</div>
-                            <div class="value-point">• 新员工培训周期缩短50%</div>
+                            <div class="value-point">• 知识查询响应时间大幅缩短</div>
+                            <div class="value-point">• 文档处理效率显著提升</div>
+                            <div class="value-point">• 重复性工作大幅减少</div>
+                            <div class="value-point">• 新员工培训周期明显缩短</div>
                         </div>
                     </div>
                     <div class="value-card">
                         <div class="value-icon">💰</div>
                         <div class="value-title">成本优化</div>
                         <div class="value-desc">
-                            <div class="value-point">• 客服人力成本降低40%</div>
-                            <div class="value-point">• 运维工作量减少60%</div>
-                            <div class="value-point">• 文档管理成本降低70%</div>
-                            <div class="value-point">• 投资回报率ROI达10-20倍</div>
+                            <div class="value-point">• 客服人力成本有效降低</div>
+                            <div class="value-point">• 运维工作量显著减少</div>
+                            <div class="value-point">• 文档管理成本大幅降低</div>
+                            <div class="value-point">• 投资回报率持续提升</div>
                         </div>
                     </div>
                     <div class="value-card">
                         <div class="value-icon">🎯</div>
                         <div class="value-title">精准可靠</div>
                         <div class="value-desc">
-                            <div class="value-point">• 知识检索准确率95%+</div>
+                            <div class="value-point">• 知识检索准确率高</div>
                             <div class="value-point">• 答案溯源，信息可追踪</div>
                             <div class="value-point">• 多模型交叉验证，降低幻觉</div>
                             <div class="value-point">• 持续学习优化，越用越准</div>
@@ -960,7 +1034,7 @@
                         <div class="value-icon">🌐</div>
                         <div class="value-title">全球化部署</div>
                         <div class="value-desc">
-                            <div class="value-point">• 覆盖全球33个地理区域</div>
+                            <div class="value-point">• 覆盖全球多个地理区域</div>
                             <div class="value-point">• 符合GDPR、HIPAA等国际标准</div>
                             <div class="value-point">• 多语言支持，服务全球</div>
                             <div class="value-point">• 就近部署，低延迟访问</div>
@@ -970,10 +1044,63 @@
                         <div class="value-icon">🚀</div>
                         <div class="value-title">快速落地</div>
                         <div class="value-desc">
-                            <div class="value-point">• 1-2周快速部署上线</div>
+                            <div class="value-point">• 快速部署上线</div>
                             <div class="value-point">• 基于AWS托管服务，无需运维</div>
                             <div class="value-point">• 开箱即用，无需复杂配置</div>
-                            <div class="value-point">• 7x24技术支持保障</div>
+                            <div class="value-point">• 全天候技术支持保障</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- AWS Implementation Experience -->
+            <div class="section" id="implementation-experience">
+                <h2 class="section-title">我们的AWS实施经验</h2>
+                <div class="aws-services" style="background: linear-gradient(135deg, #e0f2fe 0%, #dbeafe 100%);">
+                    <div class="service-center">
+                        <div class="service-icon">🏆</div>
+                        <div class="service-text" style="background: linear-gradient(135deg, #146EB4 0%, #232F3E 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;">专业团队 · 丰富经验</div>
+                    </div>
+                    <div class="service-items four-columns">
+                        <div class="service-item">
+                            <div class="service-item-icon">👥</div>
+                            <div class="service-item-title">AWS官方合作团队</div>
+                            <div class="service-item-desc">
+                                <div class="service-bullet">AWS官方合作伙伴，专业解决方案团队</div>
+                                <div class="service-bullet">深度理解AWS AI服务特性和最佳实践</div>
+                                <div class="service-bullet">持续跟踪AWS最新技术和服务更新</div>
+                                <div class="service-bullet">参与AWS官方技术社区和案例分享</div>
+                            </div>
+                        </div>
+                        <div class="service-item">
+                            <div class="service-item-icon">🌍</div>
+                            <div class="service-item-title">跨行业实施经验</div>
+                            <div class="service-item-desc">
+                                <div class="service-bullet">服务多家跨国企业，覆盖全球多个地区</div>
+                                <div class="service-bullet">涵盖制造、金融、医疗、科技等多个行业</div>
+                                <div class="service-bullet">处理过PB级数据的知识库项目</div>
+                                <div class="service-bullet">支持多语言、多地区的复杂部署场景</div>
+                            </div>
+                        </div>
+                        <div class="service-item">
+                            <div class="service-item-icon">🔧</div>
+                            <div class="service-item-title">全生命周期服务</div>
+                            <div class="service-item-desc">
+                                <div class="service-bullet">需求分析与架构设计咨询</div>
+                                <div class="service-bullet">快速实施与系统集成</div>
+                                <div class="service-bullet">性能优化与成本控制</div>
+                                <div class="service-bullet">7x24运维支持与持续改进</div>
+                            </div>
+                        </div>
+                        <div class="service-item">
+                            <div class="service-item-icon">📚</div>
+                            <div class="service-item-title">知识传承与培训</div>
+                            <div class="service-item-desc">
+                                <div class="service-bullet">提供完整的技术文档和操作手册</div>
+                                <div class="service-bullet">定制化团队培训和知识转移</div>
+                                <div class="service-bullet">最佳实践分享和案例研讨</div>
+                                <div class="service-bullet">持续的技术支持和答疑服务</div>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -1199,7 +1326,7 @@
                                     业务挑战
                                 </div>
                                 <ul class="case-list">
-                                    <li>员工5000+人，技术文档10万+份</li>
+                                    <li>大型企业，技术文档数量庞大</li>
                                     <li>包含大量CAD图纸和工艺文档，格式复杂</li>
                                     <li>文档检索效率低，依赖人工查找</li>
                                     <li>知识沉淀困难，新员工培训周期长</li>
@@ -1223,19 +1350,19 @@
                                     实施效果
                                 </div>
                                 <ul class="case-list">
-                                    <li>文档检索效率提升80%，从30分钟降至3秒</li>
-                                    <li>新员工培训周期缩短50%，从4周降至2周</li>
-                                    <li>知识复用率提升60%，减少重复劳动</li>
-                                    <li>部署周期仅2周，基于AWS托管服务快速上线</li>
+                                    <li>文档检索效率大幅提升，查询响应时间显著缩短</li>
+                                    <li>新员工培训周期明显缩短，上手速度加快</li>
+                                    <li>知识复用率显著提升，减少重复劳动</li>
+                                    <li>部署周期短，基于AWS托管服务快速上线</li>
                                 </ul>
                             </div>
                         </div>
                     </div>
 
-                    <!-- Case 2: 金融业 -->
+                    <!-- Case 2: 零售业 -->
                     <div class="case-card">
                         <div class="case-header" style="background: linear-gradient(135deg, #146EB4 0%, #232F3E 100%);">
-                            <div class="case-industry">🏦 金融业</div>
+                            <div class="case-industry">🛒 零售业</div>
                             <div class="case-title">智能客服系统</div>
                             <div class="case-subtitle">基于Bedrock Agent的智能问答平台</div>
                         </div>
@@ -1246,10 +1373,10 @@
                                     业务挑战
                                 </div>
                                 <ul class="case-list">
-                                    <li>日均咨询量10万+，人工客服压力大</li>
-                                    <li>产品文档复杂多变，客服培训成本高</li>
-                                    <li>合规要求严格，需要完整审计日志</li>
-                                    <li>需要7x24小时服务，人力成本高</li>
+                                    <li>日均咨询量大，人工客服压力大</li>
+                                    <li>产品种类繁多，客服培训成本高</li>
+                                    <li>需要处理多渠道咨询，响应要求高</li>
+                                    <li>需要全天候服务，人力成本高</li>
                                 </ul>
                             </div>
                             <div class="case-section">
@@ -1259,9 +1386,9 @@
                                 </div>
                                 <ul class="case-list">
                                     <li><strong>Bedrock Agent</strong>：智能意图识别，多轮对话理解</li>
-                                    <li><strong>混合检索</strong>：产品文档向量检索 + 政策法规SQL查询</li>
-                                    <li><strong>安全合规</strong>：KMS加密 + CloudTrail审计 + IAM权限控制</li>
-                                    <li><strong>高可用</strong>：多AZ部署，99.99% SLA保障</li>
+                                    <li><strong>混合检索</strong>：产品信息向量检索 + 库存数据SQL查询</li>
+                                    <li><strong>多渠道集成</strong>：统一接入网站、APP、微信等多个渠道</li>
+                                    <li><strong>高可用</strong>：多AZ部署，高可用性保障</li>
                                 </ul>
                             </div>
                             <div class="case-section">
@@ -1270,10 +1397,10 @@
                                     实施效果
                                 </div>
                                 <ul class="case-list">
-                                    <li>客服响应速度提升70%，平均响应时间从5分钟降至1.5分钟</li>
-                                    <li>人工客服成本降低40%，AI处理60%常见问题</li>
-                                    <li>客户满意度提升25%，问题解决率达85%</li>
-                                    <li>完整审计日志，满足金融行业合规要求</li>
+                                    <li>客服响应速度显著提升，平均响应时间大幅缩短</li>
+                                    <li>人工客服成本有效降低，AI处理大量常见问题</li>
+                                    <li>客户满意度明显提升，问题解决率高</li>
+                                    <li>支持多渠道统一服务，用户体验一致</li>
                                 </ul>
                             </div>
                         </div>
@@ -1297,7 +1424,7 @@
         <!-- Footer -->
         <div class="footer">
             <div class="footer-text">
-                © 2025 SILK | Powered by Amazon Web Services | 版本 v1.0
+                © 2025 SILK | Leveraging AWS AI Services | 版本 v1.0
             </div>
             <div class="footer-text" style="margin-top: 10px;">
                 <strong>核心AWS服务：</strong>Amazon Bedrock | Textract | Rekognition | Transcribe | OpenSearch | Redshift | S3
